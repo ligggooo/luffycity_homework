@@ -56,7 +56,7 @@ if user:
         elif select.isdigit() and int(select) >=0 and int(select) <len(goods):
             money = buy_goods(goods,int(select),money,shopping_log)
         else:
-            print('无效输入')
+            print('无效输入，请重输：')
 
 
 
