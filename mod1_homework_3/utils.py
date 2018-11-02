@@ -68,8 +68,10 @@ def print_log(log,money):
 def load_record(record_file):
     record = {}
     for line in open(record_file).readlines():
-        name,money = line.strip().split('\t')
-        record[name] = float(money)
+        line = line.strip()
+        if len(line) > 0:
+            name,money = line.split('\t')
+            record[name] = float(money)
     return record
 
 def save_record(record_file,record,user,money):
