@@ -52,7 +52,7 @@ if user:
         if select == 'q':
             print_log(shopping_log,money)
             save_record(record_file,record,user,money)
-            exit('退出')
+            exit('退出程序')
         elif select.isdigit() and int(select) >=0 and int(select) <len(goods):
             money = buy_goods(goods,int(select),money,shopping_log)
         else:
