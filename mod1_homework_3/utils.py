@@ -62,7 +62,7 @@ def print_log(log,money):
         print('未购买任何物品，余额为%s'%money)
     else:
         for item in log:
-            print('你购买了%s单位%s'%(log[item],item))
+            print("\033[1;31;40m您购买了%s * %s.\033[0m" % (item, log[item]))
         print('你的余额为%s' % money)
 
 def load_record(record_file):
