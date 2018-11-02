@@ -34,7 +34,13 @@ record = load_record(record_file)
 user = user_auth(users,status_file)
 if user:
     if user not in record:
-        money = float(input('无消费记录，请输入你的工资：'))
+        while 1:
+            user_input = input('无消费记录，请输入你的工资：')
+            if user_input.isdigit():
+                money = float(user_input)
+                break
+            else:
+                print('无效输入，请重新输入你的工资：')
     else:
         money = record[user]
         print('查到消费记录，你的余额为%s'%money)
