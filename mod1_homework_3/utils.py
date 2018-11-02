@@ -10,9 +10,9 @@
 
 
 def user_auth(users,status_file):
-    status = open(status_file).read()
+    status = open(status_file).read().strip()
     if status == '1':
-        try_left = 3
+        try_left = 10
         while try_left > 0:
             user_exist = False
             user_name = input('请输入用户名： ')
