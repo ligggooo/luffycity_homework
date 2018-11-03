@@ -41,7 +41,7 @@ if user:
                 break
             else:
                 print('无效输入，请重新输入你的工资：')
-            shopping_log = {}  # 初始化消费记录
+        shopping_log = {}  # 初始化消费记录
     else:
         money = record[user]['money']
         shopping_log = record[user]['goods_bought']
@@ -53,7 +53,7 @@ if user:
         select = input('您当前的余额为%s,输入商品序号购买，或者q退出：'%money)
         if select == 'q':
             print_log(shopping_log,money)
-            save_record(record_file,record,user,money)
+            save_record(record_file,record,user,money,shopping_log)
             exit('退出程序')
         elif select.isdigit() and int(select) >=0 and int(select) <len(goods):
             money = buy_goods(goods,int(select),money,shopping_log)

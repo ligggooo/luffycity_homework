@@ -50,7 +50,7 @@ def buy_goods(goods,select,money,shopping_log):
         money -= price
         print("\033[1;31;40m您购买了%s, 余额为%s.\033[0m"%(item['name'],money))
         if item['name'] in shopping_log:
-            shopping_log[item['name'] ]+=1
+            shopping_log[item['name']]+=1
         else:
             shopping_log[item['name']] = 1
     else:
@@ -73,14 +73,18 @@ def load_record(record_file):
         if len(line) > 0:
             tokens = line.split('\t')
             name,money = tokens[:2]
+            record[name] = {}
             record[name]['goods_bought'] = json.loads(tokens[2])
             record[name]['money'] = float(money)
     return record
 
-def save_record(record_file,record,user,money):
-    record[user] = money
+def save_record(record_file,record,username,money,shopping_log):
+    record[username] = {
+        'money' : money,
+        'goods_bought': shopping_log
+    }
     f= open(record_file,'w')
-    for user in record:
-        line = user+'\t'+str(user['money'])+'\t'+json.dumps(user['goods_bought'])+'\n'
+    for username in record:
+        line = username+'\t'+str(record[username]['money'])+'\t'+json.dumps(record[username]['goods_bought'])+'\n'
         f.write(line)
     f.close()
