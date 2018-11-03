@@ -41,10 +41,12 @@ if user:
                 break
             else:
                 print('无效输入，请重新输入你的工资：')
+            shopping_log = {}  # 初始化消费记录
     else:
-        money = record[user]
-        print('查到消费记录，你的余额为%s'%money)
-    shopping_log = {}
+        money = record[user]['money']
+        shopping_log = record[user]['goods_bought']
+        print('查到消费记录')
+        print_log(shopping_log, money)
     while 1:
         print('商品')
         show_goods(goods)

@@ -71,14 +71,16 @@ def load_record(record_file):
     for line in open(record_file).readlines():
         line = line.strip()
         if len(line) > 0:
-            name,money = line.split('\t')
-            record[name] = float(money)
+            tokens = line.split('\t')
+            name,money = tokens[:2]
+            record[name]['goods_bought'] = json.loads(tokens[2])
+            record[name]['money'] = float(money)
     return record
 
 def save_record(record_file,record,user,money):
     record[user] = money
     f= open(record_file,'w')
     for user in record:
-        line = user+'\t'+str(record[user])+'\n'
+        line = user+'\t'+str(user['money'])+'\t'+json.dumps(user['goods_bought'])+'\n'
         f.write(line)
     f.close()
