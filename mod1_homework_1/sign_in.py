@@ -14,10 +14,9 @@
 
 import json
 user_file = 'status.dat'  # 文件以json格式保存一个字典，每一个key是一个用户名，value是一个包含密码和锁定状态的字典
-users = [['luffy', '12345'], ['zoro', '12341'], ['chopper', '321'], ['robin', 'absd']]  # 账户名和密码
+# user_passwd = [['luffy', '12345'], ['zoro', '12341'], ['chopper', '321'], ['robin', 'absd']]  # 账户名和密码
 
 user_status = json.loads(open(user_file).read()) # 读取用户数据文件
-
 try_left = 3
 while try_left > 0:
     user_exist = False
