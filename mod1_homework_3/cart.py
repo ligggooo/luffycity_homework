@@ -25,13 +25,13 @@ goods = [
 {"name": "美女", "price": 998},
 ]
 
-status_file = 'status.dat'  # 文件中写入1，则登录可用，否则登录不可用
+user_file = 'status.dat'  # 文件中写入1，则登录可用，否则登录不可用
 record_file = './record.dat' # 用于记录余额,若某个用户有消费记录，则程序不会提示输入工资
 users = [['luffy', '12345'], ['zoro', '12341'], ['chopper', '321'], ['robin', 'absd']]  # 账户名和密码
 
 
 record = load_record(record_file)
-user = user_auth(users,status_file)
+user = user_auth(user_file)
 if user:
     if user not in record:
         while 1:

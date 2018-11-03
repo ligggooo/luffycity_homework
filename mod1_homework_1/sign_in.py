@@ -19,7 +19,6 @@ user_file = 'status.dat'  # 文件以json格式保存一个字典，每一个key
 user_status = json.loads(open(user_file).read()) # 读取用户数据文件
 try_left = 3
 while try_left > 0:
-    user_exist = False
     user_name = input('请输入用户名： ')
     if user_name in user_status:              # 若账户在user-file中，验证其锁定状态
         status = user_status[user_name]['status']
