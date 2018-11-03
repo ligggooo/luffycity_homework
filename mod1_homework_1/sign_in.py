@@ -17,26 +17,26 @@ users = [['luffy', '12345'], ['zoro', '12341'], ['chopper', '321'], ['robin', 'a
 
 status = open(status_file).read()
 if status == '1':
-	try_left = 3
-	while try_left > 0:
-		user_exist = False
-		user_name = input('请输入用户名： ')
-		user_passwd = input('请输入密码： ')
-		for user_recored in users:
-			user_name_recored = user_recored[0]
-			user_passwd_recored = user_recored[1]
-			if user_name == user_name_recored:
-				user_exist = True
-				if user_passwd == user_passwd_recored:
-					print('Welcome,', user_name, '!')
-					exit()
-				break
-		try_left -= 1
-		if not user_exist:
-			print('无此账户,还有%s次机会' % try_left)
-		else:
-			print('密码错误,还有%s次机会' % try_left)
-	print('三次错误，锁定')
-	open(status_file, 'w').write('0')
+    try_left = 3
+    while try_left > 0:
+        user_exist = False
+        user_name = input('请输入用户名： ')
+        user_passwd = input('请输入密码： ')
+        for user_recored in users:
+            user_name_recored = user_recored[0]
+            user_passwd_recored = user_recored[1]
+            if user_name == user_name_recored:
+                user_exist = True
+                if user_passwd == user_passwd_recored:
+                    print('Welcome,', user_name, '!')
+                    exit()
+                break
+        try_left -= 1
+        if not user_exist:
+            print('无此账户,还有%s次机会' % try_left)
+        else:
+            print('密码错误,还有%s次机会' % try_left)
+    print('三次错误，锁定')
+    open(status_file, 'w').write('0')
 else:
-	print('登录锁定，无法使用')
+    print('登录锁定，无法使用')
