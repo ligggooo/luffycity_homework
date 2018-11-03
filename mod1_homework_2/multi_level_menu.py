@@ -64,8 +64,8 @@ while 1:
     elif command in route[-1] and len(route[-1][command])>0:
         level, route = level + 1, route + [route[-1][command]]   # 10
     elif command == 'b' and level == 0:
-        print('Error 已经到了根目录，无法后退')
+        print("\033[1;31;40m Error 已经到了根目录，无法后退\033[0m")
     else:
-        print('Error 无此选项，或此选项无下一级菜单')
+        print("\033[1;31;40m Error 无此选项，或此选项无下一级菜单\033[0m")
 
 
