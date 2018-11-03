@@ -39,10 +39,12 @@ while try_left > 0:
         try_left -= 1
         print('无此账户,还有%s次机会' % try_left)                                           # 4 进入下一循环
 
-print('三次错误，锁定')                                                                     # 5 到了这里说明三次尝试都没有通过密码验证
+print('三次错误')                                                                     # 到了这里说明三次尝试都没有通过密码验证，需要锁定一个账户
 if user_name in user_status:
-    user_status[user_name]['status'] == 'locked'
+    user_status[user_name]['status'] = 'locked'
+    open(user_file, 'w').write(json.dumps(user_status, indent='  '))
+    print(user_name,'已被锁定')                                                            # 5 锁定最后一次输入的账户
 else:
-    pass
-open(user_file).write(json.dumps(user_status))
+    print('无法确定锁定对象')                                                              # 6 最后一次输入的账户无效
+
 

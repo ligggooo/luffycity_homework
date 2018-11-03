@@ -1,18 +1,18 @@
 {
-    "luffy":{
-        "passwd":"12345",
-        "status":"free"
-    },
-    "zoro":{
-        "passwd":"12341",
-        "status":"free"
-    },
-    "chopper":{
-        "passwd":"321",
-        "status":"free"
-    },
-    "robin":{
-        "passwd":"absd",
-        "status":"free"
-    }
+  "luffy": {
+    "passwd": "12345",
+    "status": "free"
+  },
+  "chopper": {
+    "passwd": "321",
+    "status": "free"
+  },
+  "robin": {
+    "passwd": "absd",
+    "status": "free"
+  },
+  "zoro": {
+    "passwd": "12341",
+    "status": "locked"
+  }
 }
