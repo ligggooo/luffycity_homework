@@ -25,15 +25,15 @@ goods = [
 {"name": "美女", "price": 998},
 ]
 
-user_file = 'status.dat'  # 文件中写入1，则登录可用，否则登录不可用
-record_file = './record.dat' # 用于记录余额,若某个用户有消费记录，则程序不会提示输入工资
-users = [['luffy', '12345'], ['zoro', '12341'], ['chopper', '321'], ['robin', 'absd']]  # 账户名和密码
+user_file = 'status.dat'  # 用户状态文件，保存密码和锁定状态
+record_file = './record.dat' # 消费记录文件
+# users = [['luffy', '12345'], ['zoro', '12341'], ['chopper', '321'], ['robin', 'absd']]  # 账户名和密码
 
 
-record = load_record(record_file)
-user = user_auth(user_file)
-if user:
-    if user not in record:
+record = load_record(record_file)  # 载入消费记录文件
+user = user_auth(user_file)  # 用户验证，是作业一的函数封装
+if user: # 通过验证后会返回用户名，否则会退出
+    if user not in record:  #若未查询到该用户的消费记录，则由用户输入工资，且初始化该用户的消费记录为空字典
         while 1:
             user_input = input('无消费记录，请输入你的工资：')
             if user_input.isdigit():
@@ -42,20 +42,20 @@ if user:
             else:
                 print('无效输入，请重新输入你的工资：')
         shopping_log = {}  # 初始化消费记录
-    else:
+    else:    # 若查询到该用户的消费记录，则载入其余额和消费记录信息，且将其之前的消费记录和余额打印出来
         money = record[user]['money']
         shopping_log = record[user]['goods_bought']
         print('查到消费记录')
         print_log(shopping_log, money)
-    while 1:
+    while 1:   # 购物
         print('商品')
         show_goods(goods)
         select = input('您当前的余额为%s,输入商品序号购买，或者q退出：'%money)
-        if select == 'q':
+        if select == 'q':              # 若用户选择退出，则打印其消费记录，且保存期消费记录
             print_log(shopping_log,money)
             save_record(record_file,record,user,money,shopping_log)
             exit('退出程序')
-        elif select.isdigit() and int(select) >=0 and int(select) <len(goods):
+        elif select.isdigit() and int(select) >=0 and int(select) <len(goods):  # 若用户选择退出，则更新余额和购物篮信息，且输出关键信息
             money = buy_goods(goods,int(select),money,shopping_log)
         else:
             print('无效输入，请重输：')
