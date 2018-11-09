@@ -9,7 +9,7 @@ from utils import execute,find,add,delete,update
 
 
 def check_execute(command):
-	if command == 'q':
+	if command == 'Q':
 		exit('退出')
 	if execute(command) != 0:
 		print(command, ' Not valid !')
@@ -17,5 +17,5 @@ def check_execute(command):
 
 while 1:
 	print('请输入命令行或者q退出')
-	command = input('>>>').strip()
+	command = input('>>>').strip() # 掐头去尾，大写
 	check_execute(command)
