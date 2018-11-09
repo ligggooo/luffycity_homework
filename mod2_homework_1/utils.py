@@ -20,6 +20,7 @@ ADD_TEMPLATE = ['RECORD', 'TBL_NAME', 'ADD']
 DEL_TEMPLATE = ['CONDITION', 'WHERE', 'TBL_NAME', 'DEL']
 UPDATE_TEMPLATE = ['CONDITION', 'WHERE', 'TO_SET', 'SET', 'TBL_NAME', 'UPDATE']
 
+import os
 
 def command_parser(command_pieces,command_template):
 	'''
@@ -48,7 +49,7 @@ def command_parser(command_pieces,command_template):
 				index += 1
 				if index >= len_command_pieces:
 					break
-			output[name] = val
+			output[name] = val.strip()
 		else:  # 模板必须由key_words和command_specs构成，否则模板有错误
 			print('模板错误')
 			return -1
@@ -134,7 +135,7 @@ def find(command_pieces):
 	condition = condition_parser(command_dict['CONDITION'])
 	col_find = area_parser(area, tbl_structure)
 	# print(area_parser(area,tbl_structure))
-	for line in open('./data/STAFF_TABLE.data',encoding='utf-8'):
+	for line in open('./data/%s.data'%tbl_name, encoding='utf-8'):
 		data_line = line.strip().split(',')
 		if check_condition(data_line, tbl_structure, condition):
 			out_line = []
@@ -153,16 +154,36 @@ def delete(command_pieces):
 	return 0
 
 def update(command_pieces):
-	args = command_parser(command_pieces, UPDATE_TEMPLATE[:])
-	print(args)
-	print(set_parser(args['TO_SET']))
+	command_dict = command_parser(command_pieces, UPDATE_TEMPLATE[:])
+	print(command_dict)
+	tbl_name = command_dict['TBL_NAME']
+	condition = condition_parser(command_dict['CONDITION'])
+	to_set = set_parser(command_dict['TO_SET'])
+	print(to_set)
+	data_file_name = './data/%s.data'%tbl_name
+	data_file_name_new = './data/%s.data.new'%tbl_name
+	file_new = open(data_file_name_new, 'w',encoding='utf-8')
+	for line in open(data_file_name, encoding='utf-8'):
+		data_line = line.strip().split(',')
+		if check_condition(data_line, tbl_structure, condition):
+			print('old line',line)
+			for key in to_set:
+				index = tbl_structure[0][key]
+				value = to_set[key]
+				data_line[index]=value
+			line = ','.join(data_line)+'\n'
+			print('new line', line)
+		file_new.write(line)
+	file_new.close()
+	os.remove(data_file_name)
+	os.rename(data_file_name_new,data_file_name)
 	return 0
 
 
 
 if __name__ == '__main__':
 	# execute('find name,age from staff_table where age > 22')
-	execute('find name,age from staff_table where (age >= 23 and dept=\'IT\') or name = \'Alex Li\'')
-	# execute('UPDATE staff_table SET age=25 WHERE name = "Alex Li"')
+	# execute('find name,age from staff_table where (age >= 23 and dept=\'IT\') or name = \'Alex Li\'')
+	execute('UPDATE staff_table SET age=25,name=Ding Dong WHERE name = "Alex Li"')
 	# execute('UPDATE staff_table SET age=25,dep=W.C. WHERE name = "Alex Li"')
 
