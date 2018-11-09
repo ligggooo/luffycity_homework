@@ -7,6 +7,7 @@
 
 tbl_structure_position = {'STAFF_ID': 0, 'NAME': 1, 'AGE': 2, 'PHONE': 3, 'DEPT': 4, 'ENROLL_DATE': 5}  # 表结构 列名位置索引
 tbl_structure_type = {'STAFF_ID': int, 'NAME': str, 'AGE': int, 'PHONE':int, 'DEPT': str, 'ENROLL_DATE': str}  # 表结构 列类型索引
+# tbl_structure_length = {'STAFF_ID': 10, 'NAME': 20, 'AGE': 4, 'PHONE':20, 'DEPT': 20, 'ENROLL_DATE': 15} # 限定每一行的占位数，便于精确读写
 tbl_structure = [tbl_structure_position,tbl_structure_type]
 primary_key = 3  # 主键
 
@@ -61,7 +62,7 @@ def condition_parser(CONDITION):
 	where语句的解析
 	:return:
 	'''
-	# 解析表达式太难，改用字符替换 + eval实现一个check_condition
+	# 解析逻辑运算表达式难度太高，改用字符替换 + eval实现一个check_condition
 	CONDITION = CONDITION.strip()
 	return CONDITION.replace('=', '==').replace('AND','and').replace('OR','or').replace('<==','<=').replace('>==','>=')
 
@@ -184,6 +185,7 @@ def update(command_pieces):
 if __name__ == '__main__':
 	# execute('find name,age from staff_table where age > 22')
 	# execute('find name,age from staff_table where (age >= 23 and dept=\'IT\') or name = \'Alex Li\'')
-	execute('UPDATE staff_table SET age=25,name=Ding Dong WHERE name = "Alex Li"')
+	# execute('UPDATE staff_table SET age=25,name=Ding Dong WHERE name = "Alex Li"')
 	# execute('UPDATE staff_table SET age=25,dep=W.C. WHERE name = "Alex Li"')
+	pass
 
