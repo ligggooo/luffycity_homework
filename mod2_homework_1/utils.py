@@ -5,18 +5,20 @@
 # project: Luffycity_homework
 # description: 员工信息增删改查程序—基础函数
 
-position = {'staff_id':0,'name':1,'age':2,'phone':3,'dept':4,'eroll_date':5} # 表结构
-primary_key = 3 # 主键
+tbl_structure_position = {'STAFF_ID': 0, 'NAME': 1, 'AGE': 2, 'PHONE': 3, 'DEPT': 4, 'ENROLL_DATE': 5}  # 表结构 列名位置索引
+tbl_structure_type = {'STAFF_ID': int, 'NAME': str, 'AGE': int, 'PHONE':int, 'DEPT': str, 'ENROLL_DATE': str}  # 表结构 列类型索引
+tbl_structure = [tbl_structure_position,tbl_structure_type]
+primary_key = 3  # 主键
 
 # 一个操作命令由关键字key_word和限定段command__spec两部分构成
-key_words = ['FIND','ADD','DEL','UPDATE','FROM','WHERE','SET'] # 关键字列表
+key_words = ['FIND','ADD','DEL','UPDATE','FROM','WHERE','SET']  # 关键字列表
 command_specs = ['AREA','TBL_NAME','CONDITION','TO_SET'] # 语句限定段列表
 
-# 下面的模板序列定义了各种类型的命令,command_parser会根据模板将一个实际的命令拆分成段
-FIND_TEMPLATE = ['CONDITION','WHERE','TBL_NAME','FROM','AREA','FIND'] # 定义find的操作顺序，每次pop一个出来
-ADD_TEMPLATE = ['RECORD','TBL_NAME','ADD']
-DEL_TEMPLATE = ['CONDITION','WHERE','TBL_NAME','DEL']
-UPDATE_TEMPLATE = ['CONDITION','WHERE','TO_SET','SET','TBL_NAME','UPDATE']
+# 下面的模板序列定义了各种类型的命令,command_parser会根据模板将一个实际的命令拆分成若干段
+FIND_TEMPLATE = ['CONDITION', 'WHERE', 'TBL_NAME', 'FROM', 'AREA', 'FIND']  # 定义find的操作顺序，每次pop一个出来
+ADD_TEMPLATE = ['RECORD', 'TBL_NAME', 'ADD']
+DEL_TEMPLATE = ['CONDITION', 'WHERE', 'TBL_NAME', 'DEL']
+UPDATE_TEMPLATE = ['CONDITION', 'WHERE', 'TO_SET', 'SET', 'TBL_NAME', 'UPDATE']
 
 def command_parser(command_pieces,command_template):
 	'''
@@ -41,7 +43,7 @@ def command_parser(command_pieces,command_template):
 			name = part # 将这个段按照模板要求的进行命名
 			val = ''
 			while command_pieces[index] not in key_words: # 下一个关键字之前的所有部分都属于这个限定段
-				val +=command_pieces[index]
+				val = val + command_pieces[index] + ' '
 				index += 1
 				if index >= len_command_pieces:
 					break
@@ -57,21 +59,53 @@ def condition_parser(CONDITION):
 	:return:
 	'''
 	# 解析表达式太难，改用字符替换 + eval实现一个check_condition
-	pass
+	CONDITION = CONDITION.strip()
+	return CONDITION.replace('=', '==').replace('AND','and').replace('OR','or')
+
+def check_condition(data_line,tbl_structure,condition):
+	[tbl_structure_position, tbl_structure_type] = tbl_structure
+	for val_name in tbl_structure_position: # 用一行数据给每一个变量赋值
+		if tbl_structure_type[val_name] == str:
+			exec('%s = \'%s\''%(val_name,data_line[tbl_structure_position[val_name]]))
+		else:
+			exec('%s = %s' % (val_name, data_line[tbl_structure_position[val_name]]))
+	return eval(condition) # 执行验证条件
 
 def set_parser(TO_SET):
 	'''
-		set 赋值语句的解析
-		:return:
-		'''
+	set 赋值语句的解析
+	:return: {'字段名0':'待赋值0','字段名1':'待赋值1', ...}
+	'''
+	out_put = {}
+	TO_SET = TO_SET.strip()
+	for expr in TO_SET.split(','):
+		area, value = expr.split('=')
+		out_put[area] = value
+	return out_put
 
-	pass
+def area_parser(AREA,tbl_structure):
+	'''
+	解析命令行的AREA关键段，返回列索引列表 output
+	:param AREA:
+	:param tbl_structure:
+	:return:
+	'''
+	tbl_structure_position = tbl_structure[0]
+	output=[]
+	AREA = AREA.strip()
+	if AREA == '*':
+		return list(range(len(tbl_structure[0])))
+	else:
+		for name in AREA.split(','):
+			output.append(tbl_structure_position[name])
+		return output
+
 
 def execute(command):
 	command = command.upper()
 	command_pieces = command.split(' ')
 
-	if len(command_pieces) <2:
+	if len(command_pieces) < 2:
 		return -1  # 太短一定是错的
 	else:
 		command_type = command_pieces[0] # 命令行的第一个词决定了命令的类型
@@ -88,9 +122,22 @@ def execute(command):
 
 
 def find(command_pieces):
-	args = command_parser(command_pieces,FIND_TEMPLATE[:])
-	print(args)
+	command_dict = command_parser(command_pieces, FIND_TEMPLATE[:])
+	print(command_dict)
+	area = command_dict['AREA']
+	tbl_name = command_dict['TBL_NAME']
+	condition = condition_parser(command_dict['CONDITION'])
+	col_find = area_parser(area, tbl_structure)
+	# print(area_parser(area,tbl_structure))
+	for line in open('./data/STAFF_TABLE.data',encoding='utf-8'):
+		data_line = line.strip().split(',')
+		if check_condition(data_line, tbl_structure, condition):
+			out_line = []
+			for i in col_find:
+				out_line.append(data_line[i])
+			print('\t'.join(out_line))
 	return 0
+
 
 def add(command_pieces):
 	print(command_pieces)
@@ -103,12 +150,14 @@ def delete(command_pieces):
 def update(command_pieces):
 	args = command_parser(command_pieces, UPDATE_TEMPLATE[:])
 	print(args)
+	print(set_parser(args['TO_SET']))
 	return 0
 
 
 
 if __name__ == '__main__':
-	execute('find name,age from staff_table where age > 22')
-	execute('find name,age from staff_table where age > 22')
-	execute('UPDATE staff_table SET age=25 WHERE name = "Alex Li"')
-	execute('find name,age from staff_table where age > 22')
+	# execute('find name,age from staff_table where age > 22')
+	execute('find name,age from staff_table where (age >= 23 and dept=\'IT\') or name = \'Alex Li\'')
+	# execute('UPDATE staff_table SET age=25 WHERE name = "Alex Li"')
+	# execute('UPDATE staff_table SET age=25,dep=W.C. WHERE name = "Alex Li"')
+
