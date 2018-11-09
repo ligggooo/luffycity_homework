@@ -9,7 +9,7 @@ tbl_structure_position = {'STAFF_ID': 0, 'NAME': 1, 'AGE': 2, 'PHONE': 3, 'DEPT'
 tbl_structure_type = {'STAFF_ID': int, 'NAME': str, 'AGE': int, 'PHONE':int, 'DEPT': str, 'ENROLL_DATE': str}  # 表结构 列类型索引
 # tbl_structure_length = {'STAFF_ID': 10, 'NAME': 20, 'AGE': 4, 'PHONE':20, 'DEPT': 20, 'ENROLL_DATE': 15} # 限定每一字段的占位数，便于精确读写
 tbl_structure = [tbl_structure_position,tbl_structure_type]
-primary_key = 3  # 主键
+primary_key = 'PHONE'  # 主键
 
 # 一个操作命令由关键字key_word和限定段command__spec两部分构成
 key_words = ['FIND','ADD','DEL','UPDATE','FROM','WHERE','SET']  # 关键字列表
@@ -18,7 +18,7 @@ command_specs = ['AREA','TBL_NAME','CONDITION','TO_SET'] # 语句限定段列表
 # 下面的模板序列定义了各种类型的命令,command_parser会根据模板将一个实际的命令拆分成若干段
 FIND_TEMPLATE = ['CONDITION', 'WHERE', 'TBL_NAME', 'FROM', 'AREA', 'FIND']  # 定义find的操作顺序，每次pop一个出来
 ADD_TEMPLATE = ['RECORD', 'TBL_NAME', 'ADD']
-DEL_TEMPLATE = ['CONDITION', 'WHERE', 'TBL_NAME', 'DEL']
+DEL_TEMPLATE = ['CONDITION', 'WHERE', 'TBL_NAME', 'FROM', 'DEL']
 UPDATE_TEMPLATE = ['CONDITION', 'WHERE', 'TO_SET', 'SET', 'TBL_NAME', 'UPDATE']
 
 import os
@@ -67,7 +67,7 @@ def condition_parser(CONDITION):
 	return CONDITION.replace('=', '==').replace('AND','and').replace('OR','or').replace('<==','<=').replace('>==','>=')
 
 
-def check_condition(data_line,tbl_structure,condition):
+def check_condition(data_line, tbl_structure, condition):
 	[tbl_structure_position, tbl_structure_type] = tbl_structure
 	for val_name in tbl_structure_position: # 用一行数据给每一个变量赋值
 		if tbl_structure_type[val_name] == str:
@@ -109,22 +109,25 @@ def area_parser(AREA,tbl_structure):
 
 
 def execute(command):
-	command = command.upper()
-	command_pieces = command.split(' ')
+	try:
+		command = command.upper()
+		command_pieces = command.split(' ')
 
-	if len(command_pieces) < 2:
-		return -1  # 太短一定是错的
-	else:
-		command_type = command_pieces[0] # 命令行的第一个词决定了命令的类型
-	if command_type == 'FIND': # 分开执行，遇到不能识别的命令会返回-1
-		return find(command_pieces)
-	elif command_type == 'ADD':
-		return add(command_pieces)
-	elif command_type == 'DEL':
-		return delete(command_pieces)
-	elif command_type == 'UPDATE':
-		return update(command_pieces)
-	else:
+		if len(command_pieces) < 2:
+			return -1  # 太短一定是错的
+		else:
+			command_type = command_pieces[0] # 命令行的第一个词决定了命令的类型
+		if command_type == 'FIND': # 分开执行，遇到不能识别的命令会返回-1
+			return find(command_pieces)
+		elif command_type == 'ADD':
+			return add(command_pieces)
+		elif command_type == 'DEL':
+			return delete(command_pieces)
+		elif command_type == 'UPDATE':
+			return update(command_pieces)
+		else:
+			return -1
+	except:
 		return -1
 
 
@@ -151,7 +154,22 @@ def add(command_pieces):
 	return 0
 
 def delete(command_pieces):
-	print(command_pieces)
+	command_dict = command_parser(command_pieces, DEL_TEMPLATE[:])
+	print(command_dict)
+	tbl_name = command_dict['TBL_NAME']
+	condition = condition_parser(command_dict['CONDITION'])
+	data_file_name = './data/%s.data' % tbl_name
+	data_file_name_new = './data/%s.data.new' % tbl_name
+	file_new = open(data_file_name_new, 'w', encoding='utf-8')
+	for line in open(data_file_name, encoding='utf-8'):
+		data_line = line.strip().split(',')
+		if not check_condition(data_line, tbl_structure, condition):
+			file_new.write(line)
+		else:
+			print('删除',line)
+	file_new.close()
+	os.remove(data_file_name)
+	os.rename(data_file_name_new, data_file_name)
 	return 0
 
 def update(command_pieces):
@@ -187,5 +205,6 @@ if __name__ == '__main__':
 	# execute('find name,age from staff_table where (age >= 23 and dept=\'IT\') or name = \'Alex Li\'')
 	# execute('UPDATE staff_table SET age=25,name=Ding Dong WHERE name = "Alex Li"')
 	# execute('UPDATE staff_table SET age=25,dep=W.C. WHERE name = "Alex Li"')
+	execute('del from staff_table where staff_id=3')
 	pass
 
