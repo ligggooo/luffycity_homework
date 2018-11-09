@@ -46,6 +46,6 @@ staff_id | name | age | phone |dept | eroll_date
     UPDATE staff_table SET dept="Market" WHERE dept = "IT" 把所有dept=IT的纪录的dept改成Market
     UPDATE staff_table SET age=25 WHERE name = "Alex Li" 把name=Alex Li的纪录的年龄改成25
     ```
-5.以上每条语名执行完毕后，要显示这条语句影响了多少条纪录。 比如查询语句 就显示 查询出了多少条、
+5. 以上每条语名执行完毕后，要显示这条语句影响了多少条纪录。 比如查询语句 就显示 查询出了多少条、
 修改语句就显示修改了多少条等。
 * 注意：以上需求，要充分使用函数，请尽你的最大限度来减少重复代码！* 
