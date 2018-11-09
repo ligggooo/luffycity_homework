@@ -7,7 +7,7 @@
 
 tbl_structure_position = {'STAFF_ID': 0, 'NAME': 1, 'AGE': 2, 'PHONE': 3, 'DEPT': 4, 'ENROLL_DATE': 5}  # 表结构 列名位置索引
 tbl_structure_type = {'STAFF_ID': int, 'NAME': str, 'AGE': int, 'PHONE':int, 'DEPT': str, 'ENROLL_DATE': str}  # 表结构 列类型索引
-# tbl_structure_length = {'STAFF_ID': 10, 'NAME': 20, 'AGE': 4, 'PHONE':20, 'DEPT': 20, 'ENROLL_DATE': 15} # 限定每一行的占位数，便于精确读写
+# tbl_structure_length = {'STAFF_ID': 10, 'NAME': 20, 'AGE': 4, 'PHONE':20, 'DEPT': 20, 'ENROLL_DATE': 15} # 限定每一字段的占位数，便于精确读写
 tbl_structure = [tbl_structure_position,tbl_structure_type]
 primary_key = 3  # 主键
 
