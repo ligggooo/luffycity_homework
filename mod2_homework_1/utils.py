@@ -6,22 +6,24 @@
 # description: 员工信息增删改查程序—基础函数
 
 tbl_structure_position = {'STAFF_ID': 0, 'NAME': 1, 'AGE': 2, 'PHONE': 3, 'DEPT': 4, 'ENROLL_DATE': 5}  # 表结构 列名位置索引
-tbl_structure_type = {'STAFF_ID': int, 'NAME': str, 'AGE': int, 'PHONE':int, 'DEPT': str, 'ENROLL_DATE': str}  # 表结构 列类型索引
+tbl_structure_type = {'STAFF_ID': 'int', 'NAME': 'str', 'AGE': 'int', 'PHONE':'int', 'DEPT': 'str', 'ENROLL_DATE': 'str'}  # 表结构 列类型索引
 # tbl_structure_length = {'STAFF_ID': 10, 'NAME': 20, 'AGE': 4, 'PHONE':20, 'DEPT': 20, 'ENROLL_DATE': 15} # 限定每一字段的占位数，便于精确读写
 tbl_structure = [tbl_structure_position,tbl_structure_type]
 primary_key = 'PHONE'  # 主键
 
 # 一个操作命令由关键字key_word和限定段command__spec两部分构成
-key_words = ['FIND','ADD','DEL','UPDATE','FROM','WHERE','SET']  # 关键字列表
-command_specs = ['AREA','TBL_NAME','CONDITION','TO_SET'] # 语句限定段列表
+key_words = ['FIND','ADD','DEL','UPDATE','FROM','WHERE','SET','WITH']  # 关键字列表
+command_specs = ['AREA','TBL_NAME','CONDITION','TO_SET','RECORD'] # 语句限定段列表
 
 # 下面的模板序列定义了各种类型的命令,command_parser会根据模板将一个实际的命令拆分成若干段
 FIND_TEMPLATE = ['CONDITION', 'WHERE', 'TBL_NAME', 'FROM', 'AREA', 'FIND']  # 定义find的操作顺序，每次pop一个出来
-ADD_TEMPLATE = ['RECORD', 'TBL_NAME', 'ADD']
+ADD_TEMPLATE = ['RECORD','WITH', 'TBL_NAME', 'ADD']
 DEL_TEMPLATE = ['CONDITION', 'WHERE', 'TBL_NAME', 'FROM', 'DEL']
 UPDATE_TEMPLATE = ['CONDITION', 'WHERE', 'TO_SET', 'SET', 'TBL_NAME', 'UPDATE']
 
 import os
+import json
+import traceback
 
 def command_parser(command_pieces,command_template):
 	'''
@@ -70,7 +72,7 @@ def condition_parser(CONDITION):
 def check_condition(data_line, tbl_structure, condition):
 	[tbl_structure_position, tbl_structure_type] = tbl_structure
 	for val_name in tbl_structure_position: # 用一行数据给每一个变量赋值
-		if tbl_structure_type[val_name] == str:
+		if tbl_structure_type[val_name] == 'str':
 			exec('%s = \'%s\''%(val_name,data_line[tbl_structure_position[val_name]].upper()))
 		else:
 			exec('%s = %s' % (val_name, data_line[tbl_structure_position[val_name]]))
@@ -127,7 +129,8 @@ def execute(command):
 			return update(command_pieces)
 		else:
 			return -1
-	except:
+	except Exception as e:
+		traceback.print_exc()
 		return -1
 
 
@@ -150,8 +153,33 @@ def find(command_pieces):
 
 
 def add(command_pieces):
-	print(command_pieces)
-	return 0
+	command_dict = command_parser(command_pieces, ADD_TEMPLATE[:])
+	print(command_dict)
+	tbl_name = command_dict['TBL_NAME']
+	record = command_dict['RECORD']
+	if check_table(tbl_name,record): # 检查要添加的记录是否符合标准
+		id = get_max_id(tbl_name)+1 # 获取新纪录的id
+		data_file_name = './data/%s.data' % tbl_name
+		f= open(data_file_name,'a',encoding='utf-8')
+		line = str(id)+','+record+'\n'
+		f.write(line)
+		f.close()
+		set_max_id(tbl_name,id)
+		return 0
+	else:
+		return -1
+
+def check_table(tbl_name,record):
+	return True
+
+def get_max_id(tbl_name):
+	tbl_info = json.loads(open('./data/%s.aux'%tbl_name,encoding='utf-8').read())
+	return tbl_info['max_id']
+
+def set_max_id(tbl_name,id):
+	tbl_info = json.loads(open('./data/%s.aux' % tbl_name, encoding='utf-8').read())
+	tbl_info['max_id'] = id
+	open('./data/%s.aux' % tbl_name,'w', encoding='utf-8').write(json.dumps(tbl_info,indent='\t'))
 
 def delete(command_pieces):
 	command_dict = command_parser(command_pieces, DEL_TEMPLATE[:])
@@ -195,7 +223,7 @@ def update(command_pieces):
 		file_new.write(line)
 	file_new.close()
 	os.remove(data_file_name)
-	os.rename(data_file_name_new,data_file_name)
+	os.rename(data_file_name_new, data_file_name)
 	return 0
 
 
@@ -205,6 +233,7 @@ if __name__ == '__main__':
 	# execute('find name,age from staff_table where (age >= 23 and dept=\'IT\') or name = \'Alex Li\'')
 	# execute('UPDATE staff_table SET age=25,name=Ding Dong WHERE name = "Alex Li"')
 	# execute('UPDATE staff_table SET age=25,dep=W.C. WHERE name = "Alex Li"')
-	execute('del from staff_table where staff_id=3')
+	# execute('del from staff_table where staff_id=3')
+	execute('add staff_table with Alex Li,25,134435344,IT,2015‐10‐29')
 	pass
 
