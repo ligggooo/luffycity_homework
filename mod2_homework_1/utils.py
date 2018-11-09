@@ -51,7 +51,21 @@ def command_parser(command_pieces,command_template):
 			return -1
 	return output
 
+def condition_parser(CONDITION):
+	'''
+	where语句的解析
+	:return:
+	'''
+	# 解析表达式太难，改用字符替换 + eval实现
+	pass
 
+def set_parser(TO_SET):
+	'''
+		set 赋值语句的解析
+		:return:
+		'''
+	# 解析表达式太难，改用字符替换 + eval实现
+	pass
 
 def execute(command):
 	command = command.upper()
