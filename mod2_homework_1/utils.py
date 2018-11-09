@@ -60,13 +60,13 @@ def condition_parser(CONDITION):
 	'''
 	# 解析表达式太难，改用字符替换 + eval实现一个check_condition
 	CONDITION = CONDITION.strip()
-	return CONDITION.replace('=', '==').replace('AND','and').replace('OR','or')
+	return CONDITION.replace('=', '==').replace('AND','and').replace('OR','or').replace('<==','<=').replace('>==','>=')
 
 def check_condition(data_line,tbl_structure,condition):
 	[tbl_structure_position, tbl_structure_type] = tbl_structure
 	for val_name in tbl_structure_position: # 用一行数据给每一个变量赋值
 		if tbl_structure_type[val_name] == str:
-			exec('%s = \'%s\''%(val_name,data_line[tbl_structure_position[val_name]]))
+			exec('%s = \'%s\''%(val_name,data_line[tbl_structure_position[val_name]].upper()))
 		else:
 			exec('%s = %s' % (val_name, data_line[tbl_structure_position[val_name]]))
 	return eval(condition) # 执行验证条件
