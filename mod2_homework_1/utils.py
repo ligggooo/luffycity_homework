@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 # author: Goodwillie
 # datetime: 2018/11/9 15:24
 # project: Luffycity_homework
@@ -19,6 +19,7 @@ FIND_TEMPLATE = ['CONDITION', 'WHERE', 'TBL_NAME', 'FROM', 'AREA', 'FIND']  # �
 ADD_TEMPLATE = ['RECORD', 'TBL_NAME', 'ADD']
 DEL_TEMPLATE = ['CONDITION', 'WHERE', 'TBL_NAME', 'DEL']
 UPDATE_TEMPLATE = ['CONDITION', 'WHERE', 'TO_SET', 'SET', 'TBL_NAME', 'UPDATE']
+
 
 def command_parser(command_pieces,command_template):
 	'''
@@ -53,6 +54,7 @@ def command_parser(command_pieces,command_template):
 			return -1
 	return output
 
+
 def condition_parser(CONDITION):
 	'''
 	where语句的解析
@@ -62,6 +64,7 @@ def condition_parser(CONDITION):
 	CONDITION = CONDITION.strip()
 	return CONDITION.replace('=', '==').replace('AND','and').replace('OR','or').replace('<==','<=').replace('>==','>=')
 
+
 def check_condition(data_line,tbl_structure,condition):
 	[tbl_structure_position, tbl_structure_type] = tbl_structure
 	for val_name in tbl_structure_position: # 用一行数据给每一个变量赋值
@@ -70,6 +73,7 @@ def check_condition(data_line,tbl_structure,condition):
 		else:
 			exec('%s = %s' % (val_name, data_line[tbl_structure_position[val_name]]))
 	return eval(condition) # 执行验证条件
+
 
 def set_parser(TO_SET):
 	'''
@@ -82,6 +86,7 @@ def set_parser(TO_SET):
 		area, value = expr.split('=')
 		out_put[area] = value
 	return out_put
+
 
 def area_parser(AREA,tbl_structure):
 	'''
