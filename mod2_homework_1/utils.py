@@ -56,7 +56,7 @@ def condition_parser(CONDITION):
 	where语句的解析
 	:return:
 	'''
-	# 解析表达式太难，改用字符替换 + eval实现
+	# 解析表达式太难，改用字符替换 + eval实现一个check_condition
 	pass
 
 def set_parser(TO_SET):
@@ -64,7 +64,7 @@ def set_parser(TO_SET):
 		set 赋值语句的解析
 		:return:
 		'''
-	# 解析表达式太难，改用字符替换 + eval实现
+
 	pass
 
 def execute(command):
@@ -101,7 +101,8 @@ def delete(command_pieces):
 	return 0
 
 def update(command_pieces):
-	print(command_pieces)
+	args = command_parser(command_pieces, UPDATE_TEMPLATE[:])
+	print(args)
 	return 0
 
 
@@ -109,5 +110,5 @@ def update(command_pieces):
 if __name__ == '__main__':
 	execute('find name,age from staff_table where age > 22')
 	execute('find name,age from staff_table where age > 22')
-	execute('find name,age from staff_table where age > 22')
+	execute('UPDATE staff_table SET age=25 WHERE name = "Alex Li"')
 	execute('find name,age from staff_table where age > 22')
