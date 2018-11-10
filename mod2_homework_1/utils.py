@@ -70,13 +70,17 @@ def condition_parser(CONDITION):
 
 
 def check_condition(data_line, tbl_structure, condition):
-	[tbl_structure_position, tbl_structure_type] = tbl_structure
-	for val_name in tbl_structure_position: # 用一行数据给每一个变量赋值
-		if tbl_structure_type[val_name] == 'str':
-			exec('%s = \'%s\''%(val_name,data_line[tbl_structure_position[val_name]].upper()))
-		else:
-			exec('%s = %s' % (val_name, data_line[tbl_structure_position[val_name]]))
-	return eval(condition) # 执行验证条件
+	try:
+		[tbl_structure_position, tbl_structure_type] = tbl_structure
+		for val_name in tbl_structure_position: # 用一行数据给每一个变量赋值
+			if tbl_structure_type[val_name] == 'str':
+				exec('%s = \'%s\''%(val_name,data_line[tbl_structure_position[val_name]].upper()))
+			else:
+				exec('%s = %s' % (val_name, data_line[tbl_structure_position[val_name]]))
+		return eval(condition) # 执行验证条件
+	except:
+		traceback.print_exc()
+		return False
 
 
 def set_parser(TO_SET):
@@ -106,6 +110,9 @@ def area_parser(AREA,tbl_structure):
 		return list(range(len(tbl_structure[0])))
 	else:
 		for name in AREA.split(','):
+			if name not in tbl_structure_position:
+				print('指定了不存在的字段')
+				return -1
 			output.append(tbl_structure_position[name])
 		return output
 
@@ -141,6 +148,8 @@ def find(command_pieces):
 	tbl_name = command_dict['TBL_NAME']
 	condition = condition_parser(command_dict['CONDITION'])
 	col_find = area_parser(area, tbl_structure)
+	if col_find == -1 :
+		return  -1
 	# print(area_parser(area,tbl_structure))
 	for line in open('./data/%s.data'%tbl_name, encoding='utf-8'):
 		data_line = line.strip().split(',')
@@ -156,8 +165,11 @@ def add(command_pieces):
 	command_dict = command_parser(command_pieces, ADD_TEMPLATE[:])
 	print(command_dict)
 	tbl_name = command_dict['TBL_NAME']
+	if table_exist(tbl_name):
+		print('表不存在')
+		return -1
 	record = command_dict['RECORD']
-	if check_table(tbl_name,record): # 检查要添加的记录是否符合标准
+	if check_record(tbl_name,record): # 检查要添加的记录是否符合标准
 		id = get_max_id(tbl_name)+1 # 获取新纪录的id
 		data_file_name = './data/%s.data' % tbl_name
 		f= open(data_file_name,'a',encoding='utf-8')
@@ -169,7 +181,16 @@ def add(command_pieces):
 	else:
 		return -1
 
-def check_table(tbl_name,record):
+def check_record(tbl_name,record): # ToDO
+	'''
+	检查要添加的记录是否符合标准： 表是否存在 主键是否重复 各个字段有无超长
+	:param tbl_name:  表名
+	:param record:
+	:return:
+	'''
+	return True
+
+def table_exist(tbl_name): # ToDO
 	return True
 
 def get_max_id(tbl_name):
