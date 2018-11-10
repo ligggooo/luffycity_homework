@@ -24,6 +24,7 @@ UPDATE_TEMPLATE = ['CONDITION', 'WHERE', 'TO_SET', 'SET', 'TBL_NAME', 'UPDATE']
 import os
 import json
 import traceback
+from .utils_tbl import  *
 
 def command_parser(command_pieces,command_template):
 	'''
@@ -146,9 +147,13 @@ def find(command_pieces):
 	print(command_dict)
 	area = command_dict['AREA']
 	tbl_name = command_dict['TBL_NAME']
+	if table_exist(tbl_name):
+		print('表不存在')
+		return -1
 	condition = condition_parser(command_dict['CONDITION'])
 	col_find = area_parser(area, tbl_structure)
-	if col_find == -1 :
+	if col_find == -1: # 说明字段解析错误
+		print('字段解析错误')
 		return  -1
 	# print(area_parser(area,tbl_structure))
 	for line in open('./data/%s.data'%tbl_name, encoding='utf-8'):
@@ -181,31 +186,14 @@ def add(command_pieces):
 	else:
 		return -1
 
-def check_record(tbl_name,record): # ToDO
-	'''
-	检查要添加的记录是否符合标准： 表是否存在 主键是否重复 各个字段有无超长
-	:param tbl_name:  表名
-	:param record:
-	:return:
-	'''
-	return True
-
-def table_exist(tbl_name): # ToDO
-	return True
-
-def get_max_id(tbl_name):
-	tbl_info = json.loads(open('./data/%s.aux'%tbl_name,encoding='utf-8').read())
-	return tbl_info['max_id']
-
-def set_max_id(tbl_name,id):
-	tbl_info = json.loads(open('./data/%s.aux' % tbl_name, encoding='utf-8').read())
-	tbl_info['max_id'] = id
-	open('./data/%s.aux' % tbl_name,'w', encoding='utf-8').write(json.dumps(tbl_info,indent='\t'))
 
 def delete(command_pieces):
 	command_dict = command_parser(command_pieces, DEL_TEMPLATE[:])
 	print(command_dict)
 	tbl_name = command_dict['TBL_NAME']
+	if table_exist(tbl_name):
+		print('表不存在')
+		return -1
 	condition = condition_parser(command_dict['CONDITION'])
 	data_file_name = './data/%s.data' % tbl_name
 	data_file_name_new = './data/%s.data.new' % tbl_name
@@ -225,6 +213,9 @@ def update(command_pieces):
 	command_dict = command_parser(command_pieces, UPDATE_TEMPLATE[:])
 	print(command_dict)
 	tbl_name = command_dict['TBL_NAME']
+	if table_exist(tbl_name):
+		print('表不存在')
+		return -1
 	condition = condition_parser(command_dict['CONDITION'])
 	to_set = set_parser(command_dict['TO_SET'])
 	print(to_set)
