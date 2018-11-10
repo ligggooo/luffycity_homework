@@ -24,7 +24,7 @@ UPDATE_TEMPLATE = ['CONDITION', 'WHERE', 'TO_SET', 'SET', 'TBL_NAME', 'UPDATE']
 import os
 import json
 import traceback
-from .utils_tbl import  *
+from . utils_tbl import *
 
 def command_parser(command_pieces,command_template):
 	'''
@@ -170,7 +170,7 @@ def add(command_pieces):
 	command_dict = command_parser(command_pieces, ADD_TEMPLATE[:])
 	print(command_dict)
 	tbl_name = command_dict['TBL_NAME']
-	if table_exist(tbl_name):
+	if not table_exist(tbl_name):
 		print('表不存在')
 		return -1
 	record = command_dict['RECORD']
@@ -208,6 +208,7 @@ def delete(command_pieces):
 	os.remove(data_file_name)
 	os.rename(data_file_name_new, data_file_name)
 	return 0
+
 
 def update(command_pieces):
 	command_dict = command_parser(command_pieces, UPDATE_TEMPLATE[:])
