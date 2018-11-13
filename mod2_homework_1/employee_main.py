@@ -5,7 +5,7 @@
 # project: Luffycity_homework
 # description: 员工信息增删改查程序
 
-from utils import execute,find,add,delete,update
+from .utils import *
 
 
 def check_execute(command):
