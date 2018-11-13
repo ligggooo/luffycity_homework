@@ -6,6 +6,8 @@
 + 可以模板化配置新命令，同时不必变更命令解析函数
 + set部分支持同时修改多个字段
 + where部分支持更复杂的逻辑运算表达式
+
+例如：
 ```
 execute('desc staff_table')
 execute('find name,age from staff_table where age > 22')
