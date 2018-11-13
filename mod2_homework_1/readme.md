@@ -1,5 +1,21 @@
 # 员工信息增删改查程序
 
+## 作业完成情况
+在实现原本的四个需求的同时，增加以下功能：
++ DESC Table_name
++ 可以模板化配置新命令，同时不必变更命令解析函数
++ set部分支持同时修改多个字段
++ where部分支持更复杂的逻辑运算表达式
+```
+execute('desc staff_table')
+execute('find name,age from staff_table where age > 22')
+execute('find name,age from staff_table where (age >= 23 and dept=\'IT\') or name = \'Alex Li\'')
+execute('UPDATE staff_table SET age=25,name=Ding Dong WHERE name = "Alex Li"')
+execute('UPDATE staff_table SET age=25,dep=W.C. WHERE name = "Alex Li"')
+execute('del from staff_table where staff_id=3')
+execute('add staff_table with Alex Li,25,134435344,IT,2015‐10‐29')
+```
+
 ## 需求如下
 ### 员工信息表
 

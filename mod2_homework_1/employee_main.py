@@ -23,6 +23,8 @@ if CONSOLE:
 		check_execute(command)
 else:
 	# 也可以以如下方式执行
+	execute('desc staff_table')
+	input('next')
 	execute('find name,age from staff_table where age > 22')
 	input('next')
 	execute('find name,age from staff_table where (age >= 23 and dept=\'IT\') or name = \'Alex Li\'')
