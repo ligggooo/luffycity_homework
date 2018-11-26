@@ -27,8 +27,16 @@ def add_cart(select,cart_list):
 	print("\033[1;31;40m %s 已经加入购物车.\033[0m" % item['name'])
 	return cart_list
 
-def show_cart(cart_list): # 展示购物车内物品
-	print(cart_list)
+def check_cart(cart_list): # 展示购物车内物品
+	sum = 0
+	for key in cart_list: # 效率低
+		amount = cart_list[key]
+		for item in goods:
+			if item['name'] == key:
+				sum += item['price'] * amount
+	print(cart_list,sum)
+	return sum
+
 
 def print_log(log,money):
 	print('购物记录:')
@@ -73,7 +81,8 @@ if __name__ == '__main__':
 	show_goods()
 	import conf.config as cc
 
-	z = load_cart(cc.cart_file+'.bak','luffy')
-	print(z)
+	# z = load_cart(cc.cart_file+'.bak','luffy')
+	# print(z)
 	c_l = {'电脑': 3, '鼠标': 2, '游艇': 3,'月饼':30}
-	save_cart(cc.cart_file,c_l,'luffy')
+	#save_cart(cc.cart_file,c_l,'luffy')
+	print(check_cart(cart_list=c_l))

@@ -7,10 +7,11 @@
 @Time    :   2018/11/26 9:20
 @Desc    :   商城
 '''
-from core.auth import login_status,auth_passwd,get_user_name
+from core.auth import login,login_status,auth_passwd,get_user_name
 import core.global_keeper as global_keeper
 import conf.config as conf
-from core.mall.utils import load_cart,show_goods,save_cart,add_cart,show_cart
+from core.mall.utils import load_cart,show_goods,save_cart,add_cart,check_cart
+from core.atm.atm import atm_pay
 
 record_file = conf.record_file
 cart_file = conf.cart_file
@@ -51,23 +52,45 @@ def mall():
 def cart(cart_list):
 	print('进入购物车')
 	while 1:  # 购物 加车
-		show_cart(cart_list)
+		check_cart(cart_list)
 		select = input('输入p付款，输入b返回商城')
 		if select =='p':
 			pay_status = pay(cart_list)
 			if pay_status:
 				cart_list = {}
-			break
+				save_cart(cart_file,cart_list,get_user_name())
+				break
+			else:
+				pass
 		elif select=='b':
 			break
 		else:
 			print('无效输入，请重输：')
 	return cart_list
 
-@auth_passwd
-def pay(): # 未登录状态下加入购物车会在登陆之后与已有记录合并
-	# 若购物车内物品价格小于账户余额，则完成扣款
-	return True
+@login
+def pay(cart_list):
+	merge_cart(cart_list)  # 未登录状态下加入购物车的商品会在登陆之后与历史购物车合并
+	sum_money = check_cart(cart_list)
+	# todo  需要一个一个扣款的接口
+	pay_res = atm_pay(sum_money)
+	if not pay_res:
+		print('扣款失败')
+	return pay_res
+
+def merge_cart(cart_list): #
+	# 用户有时会在非登陆状态下将一些商品加车，而支付函数会强制用户登陆
+	# 这个函数用于合并非登陆状态下加车商品列表与历史购物车列表
+	cart_list_2 = load_cart(cart_file,get_user_name()) # 能到这里，一定通过登陆验证了
+	# 合并cart_list_2和cart_list
+	for key in cart_list:
+		if key in cart_list_2:
+			cart_list[key] += cart_list_2[key]
+			cart_list_2.pop(key)
+	for key in cart_list_2:
+		cart_list[key] = cart_list_2[key]
+	save_cart(cart_file, cart_list, get_user_name())
+
 
 if __name__ == '__main__':
 	global_keeper._init()  # 全局变量，标记用户状态
