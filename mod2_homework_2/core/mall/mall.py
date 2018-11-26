@@ -27,13 +27,19 @@ def mall():
 		print('商品')
 		num_goods = show_goods() # 展示商品
 
-		select = input('输入商品序号加入购物车，c进入购物车，q退出：')
-		if select == 'q':  # 若用户选择退出，则打印其消费记录，且保存期消费记录
+		select = input('输入商品序号加入购物车，c进入购物车，b返回，q退出：')
+		if select == 'b':  # 若用户选择返回，则打印其消费记录，且保存期消费记录
 			if login_status():
 				save_cart(cart_file, cart_list, get_user_name())
 			else:
 				pass
 			return 0
+		if select == 'q':  # 若用户选择退出，则打印其消费记录，且保存期消费记录
+			if login_status():
+				save_cart(cart_file, cart_list, get_user_name())
+			else:
+				pass
+			exit('退出程序')
 		elif select.isdigit() and int(select) >= 0 and int(select) < num_goods:  # 若用户选择退出，则更新余额和购物篮信息，且输出关键信息
 			cart_list = add_cart(int(select),cart_list)
 		elif select=='c':
@@ -44,17 +50,27 @@ def mall():
 
 def cart(cart_list):
 	print('进入购物车')
-	show_cart()
-	pay_status = pay()
-	if pay_status:
-		cart_list = {}
-	else:
-		pass
+	while 1:  # 购物 加车
+		show_cart(cart_list)
+		select = input('输入p付款，输入b返回商城')
+		if select =='p':
+			pay_status = pay(cart_list)
+			if pay_status:
+				cart_list = {}
+			break
+		elif select=='b':
+			break
+		else:
+			print('无效输入，请重输：')
 	return cart_list
 
 @auth_passwd
 def pay(): # 未登录状态下加入购物车会在登陆之后与已有记录合并
-	print('支出100元')
+	# 若购物车内物品价格小于账户余额，则完成扣款
+	return True
 
 if __name__ == '__main__':
-	cart()
+	global_keeper._init()  # 全局变量，标记用户状态
+	global_keeper.set_value('user_name', 'luffy')
+	global_keeper.set_value('login_status', True)
+	mall()

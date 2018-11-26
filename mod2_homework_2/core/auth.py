@@ -88,6 +88,11 @@ def check_passwd(user_name,user_file=user_file):
 	user_status = json.loads(open(user_file).read())  # 读取用户数据文件
 	user_pay_passwd_recored = user_status[user_name]['pay_passwd'] # 获取支付密码
 
+	if user_name in user_status:  # 若账户在user-file中，验证其锁定状态
+		status = user_status[user_name]['status']
+		if status == 'locked':
+			exit('此账户已被锁定，无法使用')
+
 	try_left = 5
 	while try_left > 0:
 		user_passwd = input('请输入支付密码： ')

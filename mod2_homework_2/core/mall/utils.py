@@ -9,6 +9,7 @@
 '''
 import json
 from conf.config import mall_file
+import shutil
 
 goods = json.loads(open(mall_file,encoding='utf-8').read()) # 载入商品信息为全局变量
 
@@ -23,6 +24,7 @@ def add_cart(select,cart_list):
 		cart_list[item['name']] += 1
 	else:
 		cart_list[item['name']] = 1
+	print("\033[1;31;40m %s 已经加入购物车.\033[0m" % item['name'])
 	return cart_list
 
 def show_cart(cart_list): # 展示购物车内物品
@@ -52,12 +54,26 @@ def load_cart(cart_file,user_name): # todo
 			pass
 	return cart
 
-def save_cart(record_file, cart, user_name): #todo
-	f_in  = open()
+def save_cart(cart_file, cart_list,user_name): #todo
+	f_in  = open(cart_file,'r')
+	f_out = open(cart_file+'.bak','w')
+	for line in f_in.readlines():
+		line_s = line.strip()
+		if len(line_s) > 0:
+			tokens = line_s.split('\t')
+			name = tokens[0]
+			if name == user_name:
+				line = name+'\t'+json.dumps(cart_list)+'\n'
+		f_out.write(line)
+	f_in.close()
+	f_out.close()
+	shutil.move(cart_file+'.bak', cart_file)
 
 if __name__ == '__main__':
 	show_goods()
 	import conf.config as cc
 
-	z = load_cart(cc.cart_file,'luffy')
+	z = load_cart(cc.cart_file+'.bak','luffy')
 	print(z)
+	c_l = {'电脑': 3, '鼠标': 2, '游艇': 3,'月饼':30}
+	save_cart(cc.cart_file,c_l,'luffy')
