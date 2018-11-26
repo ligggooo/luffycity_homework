@@ -7,14 +7,14 @@
 @Time    :   2018/11/26 9:20
 @Desc    :   商城
 '''
-from core.auth import auth
+from core.auth import login,auth_passwd
 
 
 def cart():
 	print('进入购物车')
 	pay()
 
-@auth
+@auth_passwd
 def pay():
 	print('支出100元')
 

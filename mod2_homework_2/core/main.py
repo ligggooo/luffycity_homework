@@ -13,20 +13,26 @@ from core.menu import menu_loader
 
 user = {'name':'na','login':'False'} #全局变量，标记用户状态
 
+@auth
+def welcome():
+	print('wel',user)
+
 menu = {
 	'tag': '主界面',
 	'msg': '输入S或A选择其中一项，q 退出程序:',
-	'todo': [],
+	'functions': [welcome],
 	'sub': {
 		'S': {
 			'tag': '商城',
-			'msg': '进入商城',
-			'todo': [cart]
+			'msg': '输入b退回主界面，q退出程序：',
+			'functions': [cart,],
+			'sub':{}
 		},
 		'A': {
 			'tag': '取款机',
-			'msg': '进入ATM',
-			'todo': [account]
+			'msg': '输入b退回主界面，q退出程序：',
+			'functions': [account,],
+			'sub':{}
 		}
 	}
 }

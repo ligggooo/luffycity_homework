@@ -11,7 +11,7 @@ from core.auth import auth
 
 @auth
 def account():
-	print('进入atm机')
+	print('atm操作')
 
 if __name__ == '__main__':
 	pass

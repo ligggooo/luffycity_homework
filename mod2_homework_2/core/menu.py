@@ -9,16 +9,22 @@
 '''
 def menu_loader(menu):
 	route, level = [menu], 0
+	for func in menu['functions']: # 菜单等级变化之后要把这一级的functions任务都完成
+		func()
 	while 1:
-		for key in menu['sub']:
+		for key in route[-1]['sub']:
 			print(menu['sub'][key]['tag'],key) # todo 加颜色
-		command = input(menu['msg'])
+		command = input(route[-1]['msg'])
 		if command == 'b' and level > 0:
 			level, route = level - 1, route[:-1]
+			for func in route[-1]['functions']:
+				func()
 		elif command == 'q':
 			exit()
-		elif command in route[-1] and len(route[-1][command]) > 0:
-			level, route = level + 1, route + [route[-1][command]]  # 10
+		elif command in route[-1]['sub'] and len(route[-1]['sub'][command]) > 0:
+			level, route = level + 1, route + [route[-1]['sub'][command]]  # 10
+			for func in route[-1]['functions']:
+				func()
 		elif command == 'b' and level == 0:
 			print("\033[1;31;40m Error 已经到了根目录，无法后退\033[0m")
 		else:
