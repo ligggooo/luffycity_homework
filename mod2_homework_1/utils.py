@@ -5,14 +5,13 @@
 # project: Luffycity_homework
 # description: 员工信息增删改查程序—基础函数
 
-tbl_structure_position = {'STAFF_ID': 0, 'NAME': 1, 'AGE': 2, 'PHONE': 3, 'DEPT': 4, 'ENROLL_DATE': 5}  # 表结构 列名位置索引
-tbl_structure_type = {'STAFF_ID': 'int', 'NAME': 'str', 'AGE': 'int', 'PHONE':'int', 'DEPT': 'str', 'ENROLL_DATE': 'str'}  # 表结构 列类型索引
-# tbl_structure_length = {'STAFF_ID': 10, 'NAME': 20, 'AGE': 4, 'PHONE':20, 'DEPT': 20, 'ENROLL_DATE': 15} # 限定每一字段的占位数，便于精确读写
-tbl_structure = [tbl_structure_position,tbl_structure_type]
-primary_key = 'PHONE'  # 主键
+import os
+import json
+import traceback
+from utils_tbl import *
 
 # 一个操作命令由关键字key_word和限定段command__spec两部分构成
-key_words = ['FIND','ADD','DEL','UPDATE','FROM','WHERE','SET','WITH']  # 关键字列表
+key_words = ['FIND','ADD','DEL','UPDATE','FROM','WHERE','SET','WITH','DESC']  # 关键字列表
 command_specs = ['AREA','TBL_NAME','CONDITION','TO_SET','RECORD'] # 语句限定段列表
 
 # 下面的模板序列定义了各种类型的命令,command_parser会根据模板将一个实际的命令拆分成若干段
@@ -20,13 +19,19 @@ FIND_TEMPLATE = ['CONDITION', 'WHERE', 'TBL_NAME', 'FROM', 'AREA', 'FIND']  # �
 ADD_TEMPLATE = ['RECORD','WITH', 'TBL_NAME', 'ADD']
 DEL_TEMPLATE = ['CONDITION', 'WHERE', 'TBL_NAME', 'FROM', 'DEL']
 UPDATE_TEMPLATE = ['CONDITION', 'WHERE', 'TO_SET', 'SET', 'TBL_NAME', 'UPDATE']
+DESC_TEMPLATE = ['TBL_NAME','DESC']
 
-import os
-import json
-import traceback
-from . utils_tbl import *
+# 读取表结构信息
+# tbl_structure_position = {'STAFF_ID': 0, 'NAME': 1, 'AGE': 2, 'PHONE': 3, 'DEPT': 4, 'ENROLL_DATE': 5}  # 表结构 列名位置索引
+# tbl_structure_type = {'STAFF_ID': 'int', 'NAME': 'str', 'AGE': 'int', 'PHONE':'int', 'DEPT': 'str', 'ENROLL_DATE': 'str'}  # 表结构 列类型索引
+# # tbl_structure_length = {'STAFF_ID': 10, 'NAME': 20, 'AGE': 4, 'PHONE':20, 'DEPT': 20, 'ENROLL_DATE': 15} # 限定每一字段的占位数，便于精确读写,（此功能未完成
+# tbl_structure = [tbl_structure_position,tbl_structure_type]
+# primary_key = 'PHONE'  # 主键
 
-def command_parser(command_pieces,command_template):
+tbl_structure,primary_key = load_table_info('staff_table')
+
+
+def command_parser(command_pieces, command_template):
 	'''
 	这个函数会根据预先定义好的模板去解析一个命令，输出一个便于函数读取的参数字典
 	:param command_pieces: 命令字符串
@@ -135,19 +140,30 @@ def execute(command):
 			return delete(command_pieces)
 		elif command_type == 'UPDATE':
 			return update(command_pieces)
+		elif command_type == 'DESC':
+			return desc(command_pieces)
 		else:
 			return -1
 	except Exception as e:
 		traceback.print_exc()
 		return -1
 
+def desc(command_pieces):
+	command_dict = command_parser(command_pieces, DESC_TEMPLATE[:])
+	print(command_dict)
+	tbl_name = command_dict['TBL_NAME']
+	if not table_exist(tbl_name):
+		print('表不存在')
+		return -1
+	print_info(tbl_name)
+	return 0
 
 def find(command_pieces):
 	command_dict = command_parser(command_pieces, FIND_TEMPLATE[:])
 	print(command_dict)
 	area = command_dict['AREA']
 	tbl_name = command_dict['TBL_NAME']
-	if table_exist(tbl_name):
+	if not table_exist(tbl_name):
 		print('表不存在')
 		return -1
 	condition = condition_parser(command_dict['CONDITION'])
@@ -191,7 +207,7 @@ def delete(command_pieces):
 	command_dict = command_parser(command_pieces, DEL_TEMPLATE[:])
 	print(command_dict)
 	tbl_name = command_dict['TBL_NAME']
-	if table_exist(tbl_name):
+	if not table_exist(tbl_name):
 		print('表不存在')
 		return -1
 	condition = condition_parser(command_dict['CONDITION'])
@@ -209,12 +225,11 @@ def delete(command_pieces):
 	os.rename(data_file_name_new, data_file_name)
 	return 0
 
-
 def update(command_pieces):
 	command_dict = command_parser(command_pieces, UPDATE_TEMPLATE[:])
 	print(command_dict)
 	tbl_name = command_dict['TBL_NAME']
-	if table_exist(tbl_name):
+	if not table_exist(tbl_name):
 		print('表不存在')
 		return -1
 	condition = condition_parser(command_dict['CONDITION'])
@@ -241,12 +256,12 @@ def update(command_pieces):
 
 
 
+
 if __name__ == '__main__':
 	# execute('find name,age from staff_table where age > 22')
 	# execute('find name,age from staff_table where (age >= 23 and dept=\'IT\') or name = \'Alex Li\'')
 	# execute('UPDATE staff_table SET age=25,name=Ding Dong WHERE name = "Alex Li"')
 	# execute('UPDATE staff_table SET age=25,dep=W.C. WHERE name = "Alex Li"')
 	# execute('del from staff_table where staff_id=3')
-	execute('add staff_table with Alex Li,25,134435344,IT,2015‐10‐29')
+	# execute('add staff_table with Alex Li,25,134435344,IT,2015‐10‐29')
 	pass
-
