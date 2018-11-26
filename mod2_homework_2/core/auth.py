@@ -17,12 +17,18 @@ import json
 
 user_file = conf.user_file
 
+def login_status():
+	return global_keeper.get_value('login_status')
+
+def get_user_name():
+	return global_keeper.get_value('user_name')
+
 def login(func): # 这个装饰器用于登陆认证，三次错误锁定账户
 	def decorated(*args, **kwargs):
 		if not global_keeper.get_value('login_status'):
 			# 用户认证
 			user_name = check_login()
-			global_keeper.set_value('username', user_name)
+			global_keeper.set_value('user_name', user_name)
 			global_keeper.set_value('login_status', True)
 		else:
 			print('已经登陆')
@@ -34,12 +40,12 @@ def auth_passwd(func): # 这个装饰器用于支付认证，五次错误锁定�
 		if not global_keeper.get_value('login_status'): # 先确保用户已经登陆，未登陆要求登陆，已登陆跳过
 			# 用户认证
 			user_name = check_login()
-			global_keeper.set_value('username', user_name)
+			global_keeper.set_value('user_name', user_name)
 			global_keeper.set_value('login_status', True)
 		else:
 			pass
 		# 支付密码验证
-		user_name=global_keeper.get_value('username')
+		user_name=global_keeper.get_value('user_name')
 		if check_passwd(user_name): # 如果密码验证不通过会直接退出程序并被冻结
 			print('支付密码通过了',)
 		else:
@@ -80,12 +86,12 @@ def check_login(user_file=user_file):
 
 def check_passwd(user_name,user_file=user_file):
 	user_status = json.loads(open(user_file).read())  # 读取用户数据文件
-	user_passwd_recored = user_status[user_name]['passwd'] # 获取用户密码
+	user_pay_passwd_recored = user_status[user_name]['pay_passwd'] # 获取支付密码
 
 	try_left = 5
 	while try_left > 0:
 		user_passwd = input('请输入支付密码： ')
-		if user_passwd == user_passwd_recored:  # 若密码验证通过，则返回True
+		if user_passwd == user_pay_passwd_recored:  # 若密码验证通过，则返回True
 			return True  # 2 返回 --》
 		else:  # 否则try_left减1
 			try_left -= 1

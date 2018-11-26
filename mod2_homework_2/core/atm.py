@@ -10,7 +10,7 @@
 from core.auth import login,auth_passwd
 
 @login
-def account():
+def atm():
 	print('atm操作')
 
 if __name__ == '__main__':

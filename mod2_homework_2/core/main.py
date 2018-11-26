@@ -7,20 +7,20 @@
 @Time    :   2018/11/26 9:12
 @Desc    :   主函数
 '''
-from core.mall import cart
-from core.atm import account
+from core.mall import mall
+from core.atm import atm
 from core.menu import menu_loader
 from core.auth import login,auth_passwd
 import core.global_keeper as global_keeper
 
 
 global_keeper._init() #全局变量，标记用户状态
-global_keeper.set_value('username', '')
+global_keeper.set_value('user_name', '')
 global_keeper.set_value('login_status', False)
 
 @login
 def welcome():
-	print('Welcome',global_keeper.get_value('username'))
+	print('Welcome',global_keeper.get_value('user_name'))
 
 menu = {
 	'tag': '主界面',
@@ -30,13 +30,13 @@ menu = {
 		'S': {
 			'tag': '商城',
 			'msg': '输入b退回主界面，q退出程序：',
-			'functions': [cart,],
+			'functions': [mall,],
 			'sub':{}
 		},
 		'A': {
 			'tag': '取款机',
 			'msg': '输入b退回主界面，q退出程序：',
-			'functions': [account,],
+			'functions': [atm,],
 			'sub':{}
 		}
 	}
