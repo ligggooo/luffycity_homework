@@ -11,4 +11,7 @@ import os
 
 _base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _data_dir = _base_dir+'/data'
+
 user_file = _data_dir+'/user.dat'
+
+

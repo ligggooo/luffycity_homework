@@ -31,10 +31,19 @@ def login(func): # 这个装饰器用于登陆认证，三次错误锁定账户
 
 def auth_passwd(func): # 这个装饰器用于支付认证，五次错误锁定账户
 	def decorated(*args, **kwargs):
+		if not global_keeper.get_value('login_status'): # 先确保用户已经登陆，未登陆要求登陆，已登陆跳过
+			# 用户认证
+			user_name = check_login()
+			global_keeper.set_value('username', user_name)
+			global_keeper.set_value('login_status', True)
+		else:
+			pass
 		# 支付密码验证
 		user_name=global_keeper.get_value('username')
 		if check_passwd(user_name): # 如果密码验证不通过会直接退出程序并被冻结
 			print('支付密码通过了',)
+		else:
+			print('') # 实际上不会循环到这里来
 		return func(*args, **kwargs)
 	return decorated
 
@@ -64,9 +73,10 @@ def check_login(user_file=user_file):
 	if user_name in user_status:
 		user_status[user_name]['status'] = 'locked'
 		open(user_file, 'w').write(json.dumps(user_status, indent='  '))
-		print(user_name, '已被锁定')                                                      # 5 锁定最后一次输入的账户
+		print(user_name, '已被锁定')# 5 锁定最后一次输入的账户
 	else:
 		print('无法确定锁定对象')
+	exit('退出程序')  # 6 除了#2 的另一个出口
 
 def check_passwd(user_name,user_file=user_file):
 	user_status = json.loads(open(user_file).read())  # 读取用户数据文件
@@ -87,6 +97,7 @@ def check_passwd(user_name,user_file=user_file):
 		print(user_name, '已被锁定')  # 5 锁定最后一次输入的账户
 	else:
 		print('无法确定锁定对象')
+	exit('退出程序')  # 6 除了#2 的另一个出口
 
 if __name__ == '__main__':
 	pass

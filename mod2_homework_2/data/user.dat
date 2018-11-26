@@ -1,4 +1,8 @@
 {
+  "zoro": {
+    "passwd": "12341",
+    "status": "locked"
+  },
   "luffy": {
     "passwd": "12345",
     "status": "free"
@@ -10,9 +14,5 @@
   "robin": {
     "passwd": "absd",
     "status": "free"
-  },
-  "zoro": {
-    "passwd": "12341",
-    "status": "locked"
   }
 }
