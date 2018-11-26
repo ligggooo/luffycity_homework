@@ -7,9 +7,9 @@
 @Time    :   2018/11/26 9:20
 @Desc    :   取款机
 '''
-from core.auth import auth
+from core.auth import login,auth_passwd
 
-@auth
+@login
 def account():
 	print('atm操作')
 

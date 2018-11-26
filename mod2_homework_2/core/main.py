@@ -10,10 +10,14 @@
 from core.mall import cart
 from core.atm import account
 from core.menu import menu_loader
+from core.auth import login,auth_passwd
+import core.global_keeper as global_keeper
 
 user = {'name':'na','login':'False'} #全局变量，标记用户状态
+global_keeper._init()
+global_keeper.set_value('user',user)
 
-@auth
+@login
 def welcome():
 	print('wel',user)
 
