@@ -13,13 +13,14 @@ from core.menu import menu_loader
 from core.auth import login,auth_passwd
 import core.global_keeper as global_keeper
 
-user = {'name':'na','login':'False'} #全局变量，标记用户状态
-global_keeper._init()
-global_keeper.set_value('user',user)
+
+global_keeper._init() #全局变量，标记用户状态
+global_keeper.set_value('username', '')
+global_keeper.set_value('login_status', False)
 
 @login
 def welcome():
-	print('wel',user)
+	print('Welcome',global_keeper.get_value('username'))
 
 menu = {
 	'tag': '主界面',
