@@ -8,7 +8,6 @@
 @Desc    :   模板化的菜单设计，似乎，很明显地，极其有可能提高代码可扩展性
 '''
 
-
 def menu_loader(menu,is_root_tree=True):
 	route, level = [menu], 0
 	jump_back = False
