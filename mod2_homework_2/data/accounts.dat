@@ -1,17 +1,17 @@
 {
- "luffy": {
-  "balance": 15000
+ "mall": {
+  "balance": 0
  },
- "zoro": {
-  "balance": 15000
+ "luffy": {
+  "balance": 13975.0
  },
  "chopper": {
   "balance": 15000
  },
- "robin": {
-  "balance": 15000
+ "zoro": {
+  "balance": 15025.0
  },
- "mall": {
-  "balance": 0
+ "robin": {
+  "balance": 16000.0
  }
 }

@@ -12,6 +12,7 @@ import json
 from core.auth import auth_passwd,login,isRoot
 from core.auth import get_user_name
 from conf.config import account_file
+import core.global_keeper as global_keeper
 
 _FEE_RATE = 0.05
 
@@ -20,6 +21,7 @@ def transfer():
 	print('转账')
 	from_user_name = get_user_name()
 	amount_avail = check_account()['balance']
+	acc = _load_accounts()
 	while 1:
 		to_user_name = input('请输入要转帐的账户名:').strip()
 		if to_user_name not in acc:
@@ -33,7 +35,12 @@ def transfer():
 				elif float(amount)>amount_avail:
 					print('余额不足，请重输')
 				else:
-					_atm_transfer(amount,from_user_name,to_user_name)
+					if _atm_transfer(float(amount),from_user_name,to_user_name):
+						print('转账成功') # todo 打log
+					else:
+						print('转账失败')
+					return 0
+
 
 
 @auth_passwd
@@ -69,6 +76,7 @@ def check_account():
 	user_name = get_user_name()
 	if user_name in acc:
 		res = acc[user_name]
+		print(user_name,res)
 		return res
 	else:
 		print('账户错误')
@@ -82,8 +90,10 @@ def atm_pay(amount): # 商城付款接口
 	to_user_name = 'mall'
 	return _atm_transfer(amount,from_user_name,to_user_name)
 
-def _atm_cut(amount,from_user_name = get_user_name()): # 扣款接口
+def _atm_cut(amount,from_user_name = None): # 扣款接口
 	# 扣款的默认发起方是当前登陆用户，root账户有权指定发起方为任意用户
+	if not from_user_name:
+		from_user_name = get_user_name()
 	acc = _load_accounts()
 	amount_avail = acc[from_user_name]['balance']
 	if float(amount) > amount_avail:
@@ -96,7 +106,7 @@ def _atm_cut(amount,from_user_name = get_user_name()): # 扣款接口
 
 def _atm_deposit(amount,to_user_name): # 存款接口
 	acc = _load_accounts()
-	acc[to_user_name]['balance'] -= amount
+	acc[to_user_name]['balance'] += amount
 	_save_accounts(acc)
 	return True
 
@@ -129,6 +139,6 @@ if __name__ == '__main__':
 	print('----------------testing------------', __file__)
 	acc = _load_accounts()
 	print(acc)
-	acc.pop('xx')
-	_save_accounts(acc)
+
+
 
