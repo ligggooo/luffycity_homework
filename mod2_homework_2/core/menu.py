@@ -7,7 +7,7 @@
 @Time    :   2018/11/26 9:55
 @Desc    :
 '''
-def menu_loader(menu):
+def menu_loader(menu,is_root=True):
 	route, level = [menu], 0
 	for func in menu['functions']: # 菜单等级变化之后要把这一级的functions任务都完成
 		func()
@@ -26,7 +26,10 @@ def menu_loader(menu):
 			for func in route[-1]['functions']:
 				func()
 		elif command == 'b' and level == 0:
-			print("\033[1;31;40m Error 已经到了根目录，无法后退\033[0m")
+			if is_root:
+				print("\033[1;31;40m Error 已经到了根目录，无法后退\033[0m")
+			else:
+				return 0 # 如果菜单树是一株子树，则return 0，返回到母树
 		else:
 			print("\033[1;31;40m Error 无此选项，或此选项无下一级菜单\033[0m")
 

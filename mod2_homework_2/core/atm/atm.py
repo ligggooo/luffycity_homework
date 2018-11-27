@@ -10,10 +10,11 @@
 from core.auth import login,auth_passwd
 from core.menu import menu_loader
 from core.atm.utils import check_account,repay,transfer,withdraw
+import core.global_keeper as global_keeper
 
 menu = {
 	'tag': 'ATM机',
-	'msg': '输入S或A选择其中一项，q 退出程序:',
+	'msg': '输入T、C、W、R选择其中一项，b 返回主界面，q 退出程序:',
 	'functions': [],
 	'sub': {
 		'C': {
@@ -45,8 +46,10 @@ menu = {
 
 @login
 def atm():
-	menu_loader(menu)
-
+	menu_loader(menu,is_root=False)
 
 if __name__ == '__main__':
-	pass
+	global_keeper._init()  # 全局变量，标记用户状态
+	global_keeper.set_value('user_name', 'luffy')
+	global_keeper.set_value('login_status', True)
+	atm()

@@ -18,3 +18,5 @@ mall_file = _data_dir+'/goods.dat' # 商城商品信息
 
 record_file = _data_dir+'/record.dat' #消费记录文件
 cart_file = _data_dir+'/cart.dat' #购物车列表文件
+
+account_file = _data_dir+'/accounts.dat'

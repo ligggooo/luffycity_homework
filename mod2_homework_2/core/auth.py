@@ -53,6 +53,16 @@ def auth_passwd(func): # 这个装饰器用于支付认证，五次错误锁定�
 		return func(*args, **kwargs)
 	return decorated
 
+def isRoot(func): # 这个装饰器用于检验超级用户
+	def decorated(*args, **kwargs):
+		if login_status() and get_user_name()=='root':
+			return func(*args, **kwargs)
+		else:
+			print('你不是超级用户')
+			return None
+	return decorated
+
+
 def check_login(user_file=user_file):
 	user_status = json.loads(open(user_file).read())  # 读取用户数据文件
 	try_left = 3
@@ -66,7 +76,7 @@ def check_login(user_file=user_file):
 				user_passwd_recored = user_status[user_name]['passwd']
 				user_passwd = input('请输入密码： ')
 				if user_passwd == user_passwd_recored:  # 若密码验证通过，则进入欢迎界面
-					print('Welcome,', user_name, '!')
+					print('登陆成功', user_name, '!')
 					return user_name                                                           # 2 返回 --》
 				else:  # 否则try_left减1
 					try_left -= 1

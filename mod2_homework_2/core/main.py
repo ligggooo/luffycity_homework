@@ -8,7 +8,7 @@
 @Desc    :   主函数
 '''
 from core.mall import mall
-from core.atm import atm
+from core.atm.atm import atm
 from core.menu import menu_loader
 from core.auth import login,auth_passwd
 import core.global_keeper as global_keeper
@@ -20,7 +20,7 @@ global_keeper.set_value('login_status', False)
 
 @login
 def welcome():
-	print('Welcome',global_keeper.get_value('user_name'))
+	print('进入主界面',global_keeper.get_value('user_name'))
 
 menu = {
 	'tag': '主界面',
@@ -43,6 +43,8 @@ menu = {
 }
 
 if __name__ == '__main__':
+	# global_keeper.set_value('user_name', 'luffy')
+	# global_keeper.set_value('login_status', True)   # 测试
 	menu_loader(menu)
 
 

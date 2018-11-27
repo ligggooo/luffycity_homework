@@ -11,7 +11,7 @@ from core.auth import login,login_status,auth_passwd,get_user_name
 import core.global_keeper as global_keeper
 import conf.config as conf
 from core.mall.utils import load_cart,show_goods,save_cart,add_cart,check_cart
-from core.atm.atm import atm_pay
+from core.atm.utils import atm_pay
 
 record_file = conf.record_file
 cart_file = conf.cart_file
