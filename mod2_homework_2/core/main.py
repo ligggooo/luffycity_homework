@@ -14,7 +14,7 @@ from core.auth import login,auth_passwd
 import core.global_keeper as global_keeper
 
 
-global_keeper._init() #全局变量，标记用户状态
+global_keeper._init() # 全局变量，标记用户状态
 global_keeper.set_value('user_name', '')
 global_keeper.set_value('login_status', False)
 

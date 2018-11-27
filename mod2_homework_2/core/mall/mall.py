@@ -72,7 +72,6 @@ def cart(cart_list):
 def pay(cart_list):
 	merge_cart(cart_list)  # 未登录状态下加入购物车的商品会在登陆之后与历史购物车合并
 	sum_money = check_cart(cart_list)
-	# todo  需要一个一个扣款的接口
 	pay_res = atm_pay(sum_money)
 	if not pay_res:
 		print('扣款失败')
@@ -80,7 +79,7 @@ def pay(cart_list):
 
 def merge_cart(cart_list): #
 	# 用户有时会在非登陆状态下将一些商品加车，而支付函数会强制用户登陆
-	# 这个函数用于合并非登陆状态下加车商品列表与历史购物车列表
+	# 这个merge函数用于合并非登陆状态下加车商品列表与历史购物车列表
 	cart_list_2 = load_cart(cart_file,get_user_name()) # 能到这里，一定通过登陆验证了
 	# 合并cart_list_2和cart_list
 	for key in cart_list:
