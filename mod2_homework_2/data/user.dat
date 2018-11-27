@@ -1,22 +1,37 @@
 {
-  "chopper": {
-    "status": "free",
-    "passwd": "321",
-    "pay_passwd": "12345"
-  },
-  "zoro": {
-    "status": "locked",
-    "passwd": "12341",
-    "pay_passwd": "12345"
-  },
-  "robin": {
-    "status": "free",
-    "passwd": "absd",
-    "pay_passwd": "12345"
-  },
-  "luffy": {
-    "status": "free",
-    "passwd": "12345",
-    "pay_passwd": "12345"
-  }
+ "lad": {
+  "passwd": "123123",
+  "status": "free",
+  "pay_passwd": "343"
+ },
+ "chopper": {
+  "passwd": "321",
+  "status": "free",
+  "pay_passwd": "12345"
+ },
+ "root": {
+  "passwd": "12345",
+  "status": "free",
+  "pay_passwd": "12345"
+ },
+ "zoro": {
+  "passwd": "12341",
+  "status": "free",
+  "pay_passwd": "12345"
+ },
+ "robin": {
+  "passwd": "absd",
+  "status": "free",
+  "pay_passwd": "12345"
+ },
+ "luffy": {
+  "passwd": "12345",
+  "status": "free",
+  "pay_passwd": "12345"
+ },
+ "liza": {
+  "passwd": "123123",
+  "status": "free",
+  "pay_passwd": "12345"
+ }
 }

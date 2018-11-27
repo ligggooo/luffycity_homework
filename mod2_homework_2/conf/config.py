@@ -13,6 +13,8 @@ _base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _data_dir = _base_dir+'/data'
 _log_dir = _base_dir+'/log'
 
+root_file = _data_dir+'/root.dat'
+
 user_file = _data_dir+'/user.dat' # 用户账户信息
 mall_file = _data_dir+'/goods.dat' # 商城商品信息
 

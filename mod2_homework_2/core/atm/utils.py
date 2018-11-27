@@ -36,19 +36,22 @@ def transfer():
 					print('余额不足，请重输')
 				else:
 					if _atm_transfer(float(amount),from_user_name,to_user_name):
-						print('转账成功') # todo 打log
+						print('转账成功') #todo 打log
 					else:
 						print('转账失败')
 					return 0
-
 
 
 @auth_passwd
 def withdraw():
 	amount_avail = check_account()['balance']
 	while 1:
-		amount = input('请输入要转帐的金额：').strip()
-		if not amount.isdigit():
+		amount = input('请输入要提取的金额,b 退回，q退出').strip()
+		if amount.lower() == 'q':
+			exit('退出')
+		elif amount.lower() == 'b':
+			return 0
+		elif not amount.isdigit():
 			print('金额格式错误请重输')
 		else:
 			amount = float(amount)
@@ -59,6 +62,8 @@ def withdraw():
 			else:
 				_atm_cut(amount_in_total)
 				print('取款%s，手续费%s'%(amount,fee))
+				check_account()
+				return 0
 
 @login
 def repay():
@@ -86,7 +91,7 @@ def check_account():
 # ----------------------------------下面都是不对用户直接开放的底层接口
 @auth_passwd
 def atm_pay(amount): # 商城付款接口
-	from_user_name = get_user_name() #todo
+	from_user_name = get_user_name() # todo
 	to_user_name = 'mall'
 	return _atm_transfer(amount,from_user_name,to_user_name)
 
@@ -116,6 +121,7 @@ def _atm_transfer(amount,from_user_name,to_user_name):  # 划账
 		c = _atm_cut(amount,from_user_name)
 		d = _atm_deposit(amount,to_user_name)
 		if c and d:
+			print(from_user_name,'成功向',to_user_name,'转账',amount,'元')
 			return True
 		else:
 			print('转账失败')
@@ -136,9 +142,13 @@ def _save_accounts(accounts):
 
 
 if __name__ == '__main__':
+	global_keeper._init()  # 全局变量，标记用户状态
+	global_keeper.set_value('user_name', 'luffy')
+	global_keeper.set_value('login_status', True)
 	print('----------------testing------------', __file__)
 	acc = _load_accounts()
 	print(acc)
+	atm_pay(1000)
 
 
 
