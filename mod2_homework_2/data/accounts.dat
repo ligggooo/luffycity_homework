@@ -1,23 +1,23 @@
 {
+ "lad": {
+  "balance": 12312.0
+ },
+ "luffy": {
+  "balance": 5545.9000000000015
+ },
+ "mall": {
+  "balance": 16017
+ },
+ "robin": {
+  "balance": 17234.0
+ },
  "liza": {
   "balance": 50000.7
- },
- "chopper": {
-  "balance": 15000
  },
  "zoro": {
   "balance": 1234555.0
  },
- "luffy": {
-  "balance": 11846.9
- },
- "robin": {
-  "balance": 16000.0
- },
- "mall": {
-  "balance": 2000
- },
- "lad": {
-  "balance": 12312.0
+ "chopper": {
+  "balance": 15000
  }
 }

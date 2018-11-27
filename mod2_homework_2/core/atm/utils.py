@@ -5,7 +5,7 @@
 @Software:   PyCharm
 @File    :   utils.py
 @Time    :   2018/11/27 9:10
-@Desc    :
+@Desc    :   atm的支持模块
 '''
 import json
 
@@ -13,6 +13,7 @@ from core.auth import auth_passwd,login,isRoot
 from core.auth import get_user_name
 from conf.config import account_file
 import core.global_keeper as global_keeper
+from conf.log_conf import log_atm
 
 _FEE_RATE = 0.05
 
@@ -36,7 +37,8 @@ def transfer():
 					print('余额不足，请重输')
 				else:
 					if _atm_transfer(float(amount),from_user_name,to_user_name):
-						print('转账成功') #todo 打log
+						print('转账成功')
+						log_atm.info('转账 %s from %s to %s'%(float(amount),from_user_name,to_user_name))
 					else:
 						print('转账失败')
 					return 0
@@ -62,6 +64,7 @@ def withdraw():
 			else:
 				_atm_cut(amount_in_total)
 				print('取款%s，手续费%s'%(amount,fee))
+				log_atm.info('取款 %s，手续费 %s from %s '%(amount,fee,get_user_name()))
 				check_account()
 				return 0
 
@@ -73,6 +76,7 @@ def repay():
 	time.sleep(3)
 	print('...经过一番操作，还款10000元')
 	_atm_deposit(10000,get_user_name())
+	log_atm.info('还款 %s to %s ' % (10000, get_user_name()))
 
 @login
 def check_account():
@@ -93,7 +97,11 @@ def check_account():
 def atm_pay(amount): # 商城付款接口
 	from_user_name = get_user_name() # todo
 	to_user_name = 'mall'
-	return _atm_transfer(amount,from_user_name,to_user_name)
+	if _atm_transfer(amount,from_user_name,to_user_name):
+		log_atm.info('转账 %s from %s to %s' % (float(amount), from_user_name, to_user_name))
+		return True
+	else:
+		return False
 
 def _atm_cut(amount,from_user_name = None): # 扣款接口
 	# 扣款的默认发起方是当前登陆用户，root账户有权指定发起方为任意用户

@@ -5,7 +5,7 @@
 @Software:   PyCharm
 @File    :   utils.py
 @Time    :   2018/11/3 0:14
-@Desc    :
+@Desc    :   mall的支持模块
 '''
 import json
 from conf.config import mall_file

@@ -5,7 +5,7 @@
 @Software:   PyCharm
 @File    :   utils.py
 @Time    :   2018/11/27 14:42
-@Desc    :
+@Desc    :   admin的支持模块
 '''
 
 import re
