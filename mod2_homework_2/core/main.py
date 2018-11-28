@@ -42,6 +42,13 @@ menu = {
 	}
 }
 
+def start():
+	menu_loader(menu)
+
+def admin():
+	from core.admin.admin import admin
+	admin()
+
 if __name__ == '__main__':
 	# global_keeper.set_value('user_name', 'luffy')
 	# global_keeper.set_value('login_status', True)   # 测试
