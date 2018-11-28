@@ -49,8 +49,6 @@ def add_account():
 							traceback.print_exc()
 							print('输入金额有误')
 
-
-
 def set_limit():
 	users = _load_users()
 	accounts = _load_accounts()
@@ -81,7 +79,34 @@ def set_limit():
 			print('账户%s不存在' % user_name)
 
 def freeze_account():
-	edit_account()
+	users = _load_users()
+	accounts = _load_accounts()
+	while 1:
+		user_name = input('输入需要冻结的账户名，b退回，q退出:')
+		if user_name.lower() == 'q':
+			exit('退出')
+		elif user_name.lower() == 'b':
+			return 0
+		elif user_name in users:
+			print('此账户的信息%s' % str(users[user_name]))
+			while 1:
+				command = input('输入 Y 确认冻结，b退回，q退出:').strip()
+				if command.lower() == 'q':
+					exit('退出')
+				elif command.lower() == 'b':
+					return 0
+				elif command.lower() == 'y':
+					if _freeze_account(users, user_name):
+						print('此账户的信息%s' % str(users[user_name]))
+						break
+					else:
+						print('输入错误，修改失败')
+						print('此账户的信息%s' % str(users[user_name]))
+				else:
+					print('取消')
+					break
+		else:
+			print('账户%s不存在' % user_name)
 
 def edit_account():
 	# print('查看账户')
@@ -152,6 +177,10 @@ def _set_limit(accounts, user_name, command):
 		else:
 			return False
 
+def _freeze_account(users, user_name):
+	users[user_name]['status'] = 'locked'
+	return _save_users(users)
+
 def _set_accounts_and_users(accounts,users,user_name,command):
 	command = command.split(' ')
 	if len(command) != 2:
@@ -189,4 +218,5 @@ if __name__ == '__main__':
 	global_keeper._init()  # 全局变量，标记用户状态
 	global_keeper.set_value('user_name', 'root')
 	global_keeper.set_value('login_status', True)
-	set_limit()
+	#set_limit()
+	freeze_account()
