@@ -64,9 +64,10 @@ def cart(cart_list):
 			s = login_status() # 记录此刻的登陆状态，pay会强制未登录用户登陆，这种情况下需要merge登陆前后的购物车列表
 			pay_status = pay(cart_list,s)
 			if pay_status:
-				log_mall.info(str(cart_list))  # 成功支付会清空购物车，此时将购物车内容记录到商城log里面
+				user_name = get_user_name()
+				log_mall.info(user_name+' '+str(cart_list))  # 成功支付会清空购物车，此时将购物车内容记录到商城log里面
 				cart_list = {}
-				save_cart(cart_file,cart_list,get_user_name())
+				save_cart(cart_file,cart_list,user_name)
 				break
 			else:
 				break

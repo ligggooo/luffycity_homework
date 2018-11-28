@@ -7,7 +7,7 @@
 @Time    :   2018/11/26 9:12
 @Desc    :   主函数
 '''
-from core.mall import mall
+from core.mall.mall import mall
 from core.atm.atm import atm
 from core.menu import menu_loader
 from core.auth import login,auth_passwd
