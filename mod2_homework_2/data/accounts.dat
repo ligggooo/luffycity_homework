@@ -20,4 +20,8 @@
  "lad": {
   "balance": 12312.0
  }
+ ,
+ "root": {
+  "balance": 0
+ }
 }

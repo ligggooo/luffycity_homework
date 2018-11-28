@@ -52,6 +52,7 @@ def admin():
 if __name__ == '__main__':
 	# global_keeper.set_value('user_name', 'luffy')
 	# global_keeper.set_value('login_status', True)   # 测试
-	menu_loader(menu)
+	# menu_loader(menu)
+	pass
 
 

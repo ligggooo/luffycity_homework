@@ -1,9 +1,6 @@
 作业题目：
 模拟实现一个ATM + 购物商城程序
 
-作业截止时间：
-2018-11-23 23:59
-
 作业需求:
 
 1、额度 15000或自定义
@@ -17,7 +14,52 @@
 9、提供管理接口，包括添加账户、用户额度，冻结账户等。。。
 10、用户认证用装饰器
 
-完成1、2、3、4、5、7 、10得分80
-完成6、8得分85
-完成9得分90
-代码写的清晰、健壮、开心得分95-100
+账户和权限
+
+普通账户   luffy  密码:12345 支付密码:12345            商城和atm权限
+root账户   root   密码:12345 支付密码:12345 隐藏密码:1      商城和atm权限   管理权限：添加账户、用户额度，冻结账户，手动编辑账户
+
+
+作业目录结构
+mod2_homework_2
+    ├── bin                      # 主程序目录    <<<=================运行这两个文件=========
+    │   ├── start_admin.py       # 管理入口
+    │   └── start_system.py      # 商城，atm入口
+    ├── conf                     # 配置文件目录
+    │   ├── config.py            # 系统配置
+    │   └── log_conf.py          # logger配置
+    ├── core                     # 核心代码
+    │   ├── admin                # 管理模块
+    │   │   ├── admin.py
+    │   │   ├── __init__.py
+    │   │   └── utils.py
+    │   ├── atm                  # atm模块
+    │   │   ├── atm.py
+    │   │   ├── __init__.py
+    │   │   └── utils.py
+    │   ├── auth.py              # 认证模块
+    │   ├── global_keeper.py     #全局变量管理模块
+    │   ├── __init__.py
+    │   ├── main.py              # 核心代码入口
+    │   ├── mall                 # 商城模块
+    │   │   ├── __init__.py
+    │   │   ├── mall.py
+    │   │   └── utils.py
+    │   └──  menu.py             # 菜单定制模块
+    ├── data                        # 数据目录
+    │   ├── accounts.dat
+    │   ├── cart.dat
+    │   ├── goods.dat
+    │   ├── record.dat
+    │   ├── root.dat
+    │   └── user.dat
+    ├── log                         # 日志目录
+    │   ├── atm_log
+    │   │   └── atm_log.log
+    │   ├── mall_log
+    │   │   └── mall_log.log
+    │   └── system_log
+    │       └── sys_log.log
+    └── README                      # 本文档
+
+
