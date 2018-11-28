@@ -74,7 +74,7 @@ def repay():
 	import time
 	print('.....')
 	time.sleep(3)
-	print('...经过一番操作，还款10000元')
+	print("\033[1;30;41m ...经过一番操作，还款10000元 \033[0m")
 	_atm_deposit(10000,get_user_name())
 	log_atm.info('还款 %s to %s ' % (10000, get_user_name()))
 

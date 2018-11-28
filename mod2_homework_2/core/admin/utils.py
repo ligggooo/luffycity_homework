@@ -52,7 +52,33 @@ def add_account():
 
 
 def set_limit():
-	edit_account()
+	users = _load_users()
+	accounts = _load_accounts()
+	while 1:
+		user_name = input('输入需要设置额度的账户名，b退回，q退出:')
+		if user_name.lower() == 'q':
+			exit('退出')
+		elif user_name.lower() == 'b':
+			return 0
+		elif user_name in users:
+			if user_name in accounts:
+				print('此账户下信用卡的信息%s' % str(accounts[user_name]))
+				while 1:
+					command = input('输入要设置的额度，b退回，q退出:').strip()
+					if command.lower() == 'q':
+						exit('退出')
+					elif command.lower() == 'b':
+						return 0
+					else:
+						if _set_limit(accounts, user_name, command):
+							print('此账户下信用卡的信息%s' % str(accounts[user_name]))
+						else:
+							print('输入错误，设置失败')
+							print('此账户下信用卡的信息%s' % str(accounts[user_name]))
+			else:
+				print('账户%s无信用卡' % user_name)
+		else:
+			print('账户%s不存在' % user_name)
 
 def freeze_account():
 	edit_account()
@@ -113,6 +139,19 @@ def _add_account(user_name,passwd,pay_passwd,balance,users,accounts):
 	else:
 		return False
 
+def _set_limit(accounts, user_name, command):
+	command = command.split(' ')
+	if len(command) != 1:
+		return False
+	else:
+		value = command[0]
+		if _isaumber(value):
+			accounts[user_name]['balance'] = float(value)
+			_save_accounts(accounts)
+			return True
+		else:
+			return False
+
 def _set_accounts_and_users(accounts,users,user_name,command):
 	command = command.split(' ')
 	if len(command) != 2:
@@ -127,7 +166,7 @@ def _set_accounts_and_users(accounts,users,user_name,command):
 		users[user_name][key] = value
 		_save_users(users)
 		return True
-	elif key =='balance' and value.isdigit():
+	elif key =='balance' and _isaumber(value):
 		accounts[user_name][key] = float(value)
 		_save_accounts(accounts)
 		return True
@@ -135,8 +174,12 @@ def _set_accounts_and_users(accounts,users,user_name,command):
 		return False
 
 
-
-
+def _isaumber(string):
+	try:
+		float(string)
+		return True
+	except:
+		return False
 
 
 
@@ -146,4 +189,4 @@ if __name__ == '__main__':
 	global_keeper._init()  # 全局变量，标记用户状态
 	global_keeper.set_value('user_name', 'root')
 	global_keeper.set_value('login_status', True)
-	add_account()
+	set_limit()

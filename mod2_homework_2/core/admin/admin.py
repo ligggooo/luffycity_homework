@@ -37,7 +37,7 @@ menu = {
 			'sub':{}
 		},
 		'E': {
-			'tag': '设置账户',
+			'tag': '手动编辑账户',
 			'msg': '输入b退回ATM主界面，q退出程序：',
 			'functions': [edit_account,go_back,],
 			'sub':{}

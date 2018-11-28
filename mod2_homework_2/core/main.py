@@ -9,7 +9,7 @@
 '''
 from core.mall.mall import mall
 from core.atm.atm import atm
-from core.menu import menu_loader
+from core.menu import menu_loader,go_back
 from core.auth import login,auth_passwd
 import core.global_keeper as global_keeper
 
@@ -30,13 +30,13 @@ menu = {
 		'S': {
 			'tag': '商城',
 			'msg': '输入b退回主界面，q退出程序：',
-			'functions': [mall,],
+			'functions': [mall, go_back],
 			'sub':{}
 		},
 		'A': {
 			'tag': '取款机',
 			'msg': '输入b退回主界面，q退出程序：',
-			'functions': [atm,],
+			'functions': [atm, go_back],
 			'sub':{}
 		}
 	}
