@@ -39,6 +39,14 @@ def views(name,id):
 			mgr.save_self()  # 执行一次保存一次
 			input('按任意键回到主菜单')
 
+from core.user_auth import login
+def main_view():
+	ret = login()
+	if ret['result']:
+		views(ret['name'],ret['id'])
+	else:
+		exit('认证失败')
+
 
 if __name__ == '__main__':
 	# views('alex','Teacher')

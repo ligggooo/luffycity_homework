@@ -78,7 +78,7 @@ class Teacher(Person):
 			print('作业还没提交')
 			return -1
 		progress = student.luffy_classes_progress.get(str(luffy_class))
-		score = input('>>>').strip()
+		score = input('输入评分>>>').strip()
 		if isnumber(score):
 			score = float(score)
 			student.homework_record[str(luffy_class)][progress] = score # 打分
