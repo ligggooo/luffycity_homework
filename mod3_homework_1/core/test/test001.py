@@ -26,7 +26,7 @@ if __name__ == '__main__':
 	s2 = Student('wangxiaopang',school_sh)
 	s3 = Student('nana',school_bj)
 
-	cla1 = Luffy_class('S6',course_py,alex,[s2,s3])
+	cla1 = Luffy_class('S6',course_py,alex)
 	print(cla1)
 
 	s1.register_in(cla1)
