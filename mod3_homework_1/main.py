@@ -8,7 +8,7 @@
 @Desc    :
 '''
 import os
-base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+base_dir = os.path.dirname(os.path.abspath(__file__))
 import sys
 sys.path.append(base_dir)
 
