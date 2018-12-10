@@ -76,21 +76,23 @@ class Customer:   # 管理用户
 			return True
 
 	def get_dir(self):
-		root = DATA_DIR+'\\'+self.name
-		if not os.path.exists(DATA_DIR+'\\'+self.name):
+		root = os.path.join(DATA_DIR,self.name)
+		if not os.path.exists(root):
 			os.mkdir(root)
 		return root
 
 	def cd(self,target):
-		if target == '..' and len(self.dir_route)>= 2:
+		r_target = target
+		target = os.path.join(self.dir_route[-1], target)
+		if r_target == '..' and len(self.dir_route)>= 2:
 			self.dir_route.pop()
-		elif target == '..' and len(self.dir_route) == 1:
-			pass
-		elif os.path.exists(self.dir_route[-1]+'\\'+target):
-			self.dir_route.append(self.dir_route[-1]+'\\'+target)
+		elif r_target == '..' and len(self.dir_route) == 1:
+			return
+		elif os.path.exists(target):
+			self.dir_route.append(target)
 
 	def rm(self,target):
-		target = self.dir_route[-1] + '\\' + target
+		target = os.path.join(self.dir_route[-1], target)
 		if os.path.exists(target):
 			if os.path.isfile(target):
 				vol_del = os.path.getsize(target)
