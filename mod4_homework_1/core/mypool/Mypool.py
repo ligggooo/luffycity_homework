@@ -5,7 +5,7 @@
 @Software:   PyCharm
 @File    :   Mypool.py
 @Time    :   2018/12/16 22:27
-@Desc    :   尝试自己实现一个线程池,实现concurrent.futures线程池的功能
+@Desc    :   尝试自己实现一个线程池,模仿实现了concurrent.futures线程池的大部分功能
 
 concurrent.futures模块提供了高度封装的异步调用接口
 ThreadPoolExecutor：线程池，提供异步调用
