@@ -216,6 +216,7 @@ class MYTCPServer:
 			new_customer, info = self.auth(conn, addr)  # 事先约定，客户端建立连接之后第一个数据包是验证信息，只有通过验证才会分配服务员
 		except:
 			traceback.print_exc()
+			conn.close()
 			return -1
 		if new_customer:
 			self.send_header(conn, addr, info)
@@ -223,6 +224,7 @@ class MYTCPServer:
 			self.job(new_customer)  # job里面有try
 			new_customer.vol_update()  # 异常情况导致传输中断的话，以这种方式完成数据更新
 			print(new_customer.name, '容量信息更新完成')
+			conn.close()
 		else:
 			self.send_header(conn, addr, info)
 			conn.close()
