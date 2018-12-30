@@ -1,0 +1,278 @@
+/* --------------------------------#0 全局的 -----------------------*/
+.container{
+    width: 1226px;
+    height: 100%;
+    margin:0 auto;
+    /*background-color: green;*/
+    background-color: transparent;
+    position: relative;
+}
+body{
+    min-width: 1226px;
+}
+
+/* -----------------------------------局部的-------------------------*/
+/* --------------------------------#1.0    topbar-------------------------*/
+.topBar{
+    background-color: #2b2b2b;
+    width: 100%;
+    height: 40px;
+    font: 12px/40px "微软雅黑","Times New Roman";
+    color: white;
+    text-align:center;
+}
+.topBar a{
+    color: #9a9a9a;
+    text-decoration: none;
+}
+.topBar a:hover{
+    font-weight: bold;
+    color: white;
+}
+.top_nav{
+    /*background-color: red;*/
+    background-color: transparent;
+    width: 677px;
+    height: 100%;
+    float:left;
+}
+.top_nav ul li{
+    float: left;
+    padding: 0 5px;
+    height: 40px;
+ }
+.top_cart{
+    /*background-color: red;*/
+    background-color: transparent;
+    width: 120px;
+    height: 100%;
+    float:right;
+}
+.user_info{
+    /*background-color: red;*/
+    background-color: transparent;
+    width: 143px;
+    height: 100%;
+    float:right;
+}
+.user_info ul li{
+    float: right;
+    padding: 0 5px;
+    height: 40px;
+}
+/* --------------------------------#2.0  导航栏-------------------------*/
+.header{
+    /*background-color: #fffd55;*/
+    background-color: white;
+    width: 100%;
+    height: 100px;
+    font: 12px/100px "微软雅黑","Times New Roman";
+    color: #2b2b2b;
+    text-align:center;
+}
+.header_logo{
+    background-color: #f1a624;
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    width: 55px;
+    height:55px;
+    margin: auto 0;
+    line-height: 55px;
+    border: 1px solid transparent;
+}
+.header_logo a{
+    display: block;
+    width:  90%;
+    height: 90%;
+    position: absolute;
+    left: -2px; top: 0; right: 0; bottom: 0;
+    margin: auto;
+    background: url('../images/mi-logo.png') no-repeat;
+}
+.header_nav{
+    float:left;
+    height: 100%;
+    width: 850px;
+}
+.header_nav ul li{
+    float: left;
+    padding: 0 5px;
+    height: 100%;
+    text-align: center;
+}
+.header_nav ul a{
+    color: #2b2b2b;
+    text-decoration: none;
+    font-size: 16px;
+}
+.header_nav ul a:hover{
+    color: #f1a624;
+    text-decoration: none;
+}
+.header_nav ul{
+    display: block;
+    float:left;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 60px;
+}
+.header_nav ul .advertisement{
+    float:left;
+    width: 165px;
+    height: 100%;
+    background: url(../images/pigyear.jpg) no-repeat;
+    background-position:center center;
+}
+.header_nav ul .advertisement a{
+    display: inline-block;
+    width: 165px;
+    height: 100%;
+    background-color: transparent;
+}
+
+.header_search{
+    float:right;
+    width: 316px;
+    height: 100%;
+    position: relative;
+}
+.header_search .header_search_form{
+    position: absolute;
+    top:0;bottom:0;right:0;
+    margin: auto;
+    height:42px;
+}
+.header_search ul{
+    position: absolute;
+    right:60px;
+    z-index: 10;
+}
+
+.header_search ul li{
+    float:right;
+    margin: 0 2px;
+}
+
+.header_search ul li span{
+    background-color: #dcdcdc;
+}
+.header_search ul li span:hover{
+    background-color: #f1a624;
+    font-weight: bold;
+    color:white;
+    cursor: pointer;
+}
+.header_search .header_search_form input[type='text']{
+    width: 250px;
+    height: 40px;
+    float:left;
+    border:1px solid black;
+}
+.header_search .header_search_form .submit{
+    width: 42px;
+    height: 42px;
+    float: left;
+    border:1px solid black;
+    cursor: pointer;
+    font: 20px/40px "微软雅黑","Times New Roman";
+}
+.header_search .header_search_form .submit:hover{
+    border:none;
+    background-color: #f1a624;
+    color:white;
+}
+
+/* --------------------------------#3.0  大home-------------------------*/
+.homeBig,a{
+    /*background-color: #fffd55;*/
+    background-color: white;
+    width: 100%;
+    height: 460px;
+    font: 14px/42px "微软雅黑","Times New Roman";
+    color: white;
+    text-align:center;
+}
+.homeBig .cate_list_shower{
+    background-color: purple;
+    width: 100%;
+    height: 100%;
+}
+
+.homeBig .cate_list{
+    float:left;
+    /*background-color: #27807f;*/
+    background-color: #00003d;
+    width: 250px;
+    height: 420px;
+    padding: 20px 0;
+}
+.homeBig .cate_list_ul{
+    float:left;
+    /*background-color: green;*/
+    background-color: #00003d;
+    width: 250px;
+    height: 100%;
+}
+
+.homeBig .cate_list_ul li a{
+    display: block;
+    background-color: #00003d;
+    text-decoration: none;
+    width: 100%;
+    height: 42px;
+}
+/*.homeBig .cate_list_ul li:hover{*/
+    /*background-color: white;*/
+    /*width: 100%;*/
+    /*height: 42px;*/
+    /*color: #00003d;*/
+    /*cursor: pointer;*/
+/*}*/
+.homeBig .cate_list_ul li a:hover{
+    background-color: white;
+    color: #00003d;
+    z-index: 2;
+}
+.homeBig .cate_show{
+    float:left;
+    background-color: #00003d;
+    width: 976px;
+    height: 100%;
+    color: #ffffff;
+}
+
+.homeBig .home_show{
+    position: absolute;
+    top:0;right:0;
+    background-color: orange;
+    width: 976px;
+    height: 100%;
+    color: #ffffff;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.homeBig .home_show_a{
+    position: absolute;
+    top:0;right:0;
+    background: url("../images/xiaomi8.jpg") no-repeat;
+    background-size: cover;
+    background-position: -200px center;
+    width: 976px;
+    height: 100%;
+    color: #ffffff;
+}
+
+
+/* --------------------------------#3.1  小home-------------------------*/
+.homeSmall{
+    background-color: #fffd55;
+    /*background-color: white;*/
+    width: 100%;
+    height: 460px;
+    font: 12px/100px "微软雅黑","Times New Roman";
+    color: #2b2b2b;
+    text-align:center;
+}
+
