@@ -33,8 +33,8 @@ select * from teacher where tid in
 select * from student where sid in
 	(select distinct student_id from score where course_id in (1,2));
 -- 15、查询没有带过高年级的老师id和姓名；
-select * from teacher where tid not in  --非高年级老师
-	(select tid from teach2cls where cid in  --高年级老师
+select * from teacher where tid not in  -- 非高年级老师
+	(select tid from teach2cls where cid in  -- 高年级老师
 		(select cid from class where grade_id >=5)); -- 高年级班
 -- 16、查询学过“张三”老师所教的所有课的同学的学号、姓名；
 set @tid = (select tid from teacher where tname='张三');

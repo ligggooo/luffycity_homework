@@ -1,5 +1,5 @@
 -- 操作表 21-30题
--- source ~/Codes/mysql/hw3.sql
+-- source ~/Codes/mysql/hw4.sql
 use mydata;
 
 -- 21、查询没有学全所有课的同学的学号、姓名；
@@ -23,7 +23,7 @@ select * from student where sid in
 	(select distinct c.student_id from
 		(select * from 
 			(select * from score where student_id in 
-				(select student_id from score where student_id=!2 group by student_id having count(course_id)=@c_num)) as b 
+				(select student_id from score where student_id!=2 group by student_id having count(course_id)=@c_num)) as b 
 			inner join
 				(select student_id as ref_sid,course_id as ref_cid from score where student_id =2) as a
 			on
