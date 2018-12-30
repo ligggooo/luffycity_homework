@@ -184,7 +184,7 @@ body{
 }
 
 /* --------------------------------#3.0  大home-------------------------*/
-.homeBig,a{
+.homeBig,.homeBig a{
     /*background-color: #fffd55;*/
     background-color: white;
     width: 100%;
@@ -213,14 +213,17 @@ body{
     background-color: #00003d;
     width: 250px;
     height: 100%;
+
 }
 
 .homeBig .cate_list_ul li a{
     display: block;
     background-color: #00003d;
+    margin-left: 40px;
     text-decoration: none;
-    width: 100%;
+    width: 70%;
     height: 42px;
+    text-align: left;
 }
 /*.homeBig .cate_list_ul li:hover{*/
     /*background-color: white;*/
@@ -264,15 +267,140 @@ body{
     color: #ffffff;
 }
 
-
 /* --------------------------------#3.1  小home-------------------------*/
-.homeSmall{
-    background-color: #fffd55;
-    /*background-color: white;*/
+.homeSmall,.homeSmall .homeSmall_sub a{
+    /*background-color: #835b31;*/
+    background-color: white;
+    margin-top:10px;
     width: 100%;
-    height: 460px;
-    font: 12px/100px "微软雅黑","Times New Roman";
-    color: #2b2b2b;
+    height: 170px;
+    font: 12px/14px "微软雅黑","Times New Roman";
+    color: #e7e7e7;
     text-align:center;
 }
 
+.homeSmall .homeSmall_sub{
+    float:left;
+    /*background-color: #27807f;*/
+    background-color: #835b31;
+    width: 250px;
+    height: 100%;
+}
+
+.homeSmall .homeSmall_sub ul{
+    /*background-color: #ff5425;*/
+    background-color: #835b31;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.homeSmall .homeSmall_sub li{
+    display: block;
+    float: left;
+    margin: 20px 5px;
+    /*background-color: #3cff5c;*/
+    background-color: transparent;
+    width: 70px;
+    height: 45px;
+    overflow: hidden;
+}
+.homeSmall .homeSmall_sub li a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    position: relative;
+    margin: 0;
+    background: url('../images/mi-logo.png') no-repeat;
+    background-size: cover;
+    background-position: 0 -22px;
+}
+.homeSmall .homeSmall_sub li a:hover{
+    color:white;
+    font-weight: bold;
+}
+.homeSmall .homeSmall_sub li a span{
+    display: block;
+    width: 100%;
+    height: 13px;
+    position: absolute;
+    font-size: 10px;
+    line-height: 13px;
+    bottom:0;
+}
+
+.homeSmall_sub2 li{
+    display: block;
+    width: 316px;
+    height: 170px;
+    float: left;
+    margin-left: 9px;
+    background-color: #00003d;
+}
+.homeSmall_sub2 li img{
+    width: 316px;
+    height: 170px;
+}
+.homeSmall_sub2 li a{
+    display: block;
+    position: absolute;
+    width: 316px;
+    height: 170px;
+}
+
+/* --------------------------------#4.0  闪购-------------------------*/
+.shanGou{
+    /*background-color: #835b31;*/
+    background-color: white;
+    margin-top:10px;
+    width: 100%;
+    height: 438px;
+    font: 12px/14px "微软雅黑","Times New Roman";
+    color: #1d1d1d;
+    text-align:center;
+}
+
+.shangou_header{
+    float:left;
+    /*background-color: #27807f;*/
+    /*background-color: #835b31;*/
+    width: 100%;
+    height: 35px;
+}
+
+.shangou_header .shangou_title{
+    font: 23px/32px "微软雅黑","Times New Roman";
+    text-align:left;
+}
+.shangou_detail{
+    width: 100%;
+    height: 340px;
+    /*background-color: #27807f;*/
+    margin-top:2px;
+    overflow: hidden;
+}
+.shangou_detail .shangou_count_down{
+    width: 250px;
+    height: 340px;
+    background-color: #dcdcdc;
+    border-top: brown solid 2px;
+    font: 23px/32px "微软雅黑","Times New Roman";
+}
+.shangou_detail .shangou_items{
+    margin-top:1px;
+    position: absolute;
+    right:0;top:34px;
+    width: 976px;
+    height: 340px;
+    /*background-color: #3bdc77;*/
+}
+.shangou_detail .shangou_items li{
+    float: left;
+    width: 234.7px;
+    height: 338px;
+    margin-left: 9px;
+    background-color: #6cdc33;
+    border-top: brown solid 2px;
+    font: 23px/32px "微软雅黑","Times New Roman";
+}
