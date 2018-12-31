@@ -3,8 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style type="text/css">
+        *{
+            padding:0;
+            margin:0;
+        }
+        body{
+            margin:20px;
+        }
+        .clear_fix:after{
+            content:'.';
+            clear:both;
+            display: block;
+            height:0;
+            visibility: hidden;
+        }
+        .container_1{
+            border:1px solid #9c0000;
+            width:170px;
+            margin: 0 auto;
+            background-color: #fd9256;
+        }
+        .s1{
+            background-color: green;
+            width:120px;
+            height:50px;
+            float:left;
+        }
+        .s3{
+            background-color: #dada00;
+            width:50px;
+            height:120px;
+            float:left;
+        }
+        .s2{
+            background-color: blue;
+            width:120px;
+            height:50px;
+            float:right;
+        }
+        .s4{
+            background-color: red;
+            width:50px;
+            height:120px;
+            float:right;
+            position: absolute;
+            top: 113px;
+        }
+    </style>
 </head>
 <body>
     <h1>这个页面还在施工。。。。</h1>
+    <div class="container_1 clear_fix">
+        <div class="s1"></div>
+        <div class="s3"></div>
+        <div class="s2"></div>
+        <div class="s4"></div>
+    </div>
 </body>
 </html>

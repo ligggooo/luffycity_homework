@@ -7,6 +7,15 @@
     background-color: transparent;
     position: relative;
 }
+
+.clear_fix:after{
+    content:'.';
+    clear:both;
+    display: block;
+    height:0;
+    visibility: hidden;
+}
+
 body{
     min-width: 1226px;
 }
@@ -355,7 +364,7 @@ body{
     background-color: white;
     margin-top:10px;
     width: 100%;
-    height: 438px;
+    /*height: 438px;*/
     font: 12px/14px "微软雅黑","Times New Roman";
     color: #1d1d1d;
     text-align:center;
@@ -381,7 +390,7 @@ body{
     overflow: hidden;
 }
 .shangou_detail .shangou_count_down{
-    width: 250px;
+    width: 249px;
     height: 340px;
     background-color: #dcdcdc;
     border-top: brown solid 2px;
@@ -400,7 +409,83 @@ body{
     width: 234.7px;
     height: 338px;
     margin-left: 9px;
-    background-color: #6cdc33;
+    /*background-color: #6cdc33;*/
     border-top: brown solid 2px;
     font: 23px/32px "微软雅黑","Times New Roman";
 }
+.shangou_detail .shangou_items li img{
+    float: left;
+    width: 234.7px;
+    height: 338px;
+}
+.shangou_detail .shangou_count_down img{
+    float: left;
+    width: 249px;
+    height: 340px;
+}
+
+/* --------------------------------#5.0  footer-------------------------*/
+.footer{
+    background-color: #f1a624;
+    margin-top:30px;
+    padding:27px 0 27px;
+}
+
+.footer ul{
+    margin-left: 4px;
+}
+
+.footer ul li{
+    display: block;
+    float:left;
+    width:243px;
+    height:25px;
+    background-color: transparent;
+}
+
+.footer ul li a{
+    display: block;
+    text-decoration: none;
+    color:white;
+    text-align: center;
+    line-height: 25px;
+}
+.footer ul li a:hover{
+    font-weight: bold;
+}
+
+
+/* --------------------------------#6.0  helper-------------------------*/
+.fixedHelper{
+    width: 71px;
+    height: 60px;
+    background-color: #f1a624;
+    position: fixed;
+    bottom:200px;
+    left:4px;
+    border-radius: 10px;
+}
+.fixedHelper:hover{
+    background-color: grey;
+}
+
+.fixedHelper p{
+    display: block;
+    color:white;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.fixedHelper a{
+    display: block;
+    text-decoration: none;
+    border-radius: 20px;
+    height: 35px;
+    width: 70px;
+    background: url('../images/icon-slides_up_down.png') no-repeat ;
+}
+/*.fixedHelper a:hover{*/
+    /*background: url('../images/icon-slides_up_down.png') no-repeat ;*/
+    /*!*-83px 0*!*/
+/*}*/
