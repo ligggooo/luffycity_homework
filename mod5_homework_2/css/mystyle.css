@@ -1,13 +1,46 @@
+.container{
+    width:800px;
+    margin: 0 auto;
+    position: relative;
+}
+.clear_fix:after{
+    content:'.';
+    clear:both;
+    display: block;
+    height:0;
+    visibility: hidden;
+}
+
+
+
+/*以上时全局样式*/
+
+/*                 topbar                        */
+
 .topBar{
     background-color: black;
     font: 12px/40px "微软雅黑","Times New Roman";
     color:white;
 }
 
+#clear_all{
+    width: 60px;
+    position: absolute;
+    left:300px;
+    color:white;
+    background-color: transparent;
+    font-size: 12px;
+    text-align: center;
+}
+#clear_all:hover{
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+
 .top_form{
     /*height:30px;*/
-    width:600px;
-    padding: 0 20px;
+    width:700px;
     margin: 0 auto;
 }
 
@@ -17,8 +50,103 @@
 #top_input{
     border: 1px solid black;
     height:30px;
-    width:330px;
-    background-color:grey;
-    margin-left:200px;
-    margin-right: 0;
+    width:370px;
+    background-color: #a4a4a4;
+    position: absolute;
+    right:20px;
+    bottom: 5px;
+    color: #000000;
+}
+#top_input:focus{
+    background-color: #a4a4a4;
+}
+
+
+
+/*                      list                        */
+.detail{
+    margin-top: 20px;
+    background-color: #d3d3d3;
+    color:white;
+}
+
+.main{
+    background-color: #bebebe;
+    min-height:1000px;
+}
+.detail h3{
+    margin-left: 100px;
+    color: black;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: bolder;
+}
+.detail ul{
+    display: block;
+    margin: 0 auto;
+    width: 600px;
+    border-top: 2px solid black;
+}
+
+.detail ul li{
+    display: block;
+    margin: 10px auto 10px;
+    width: 600px;
+    line-height: 16px;
+    position: relative;
+}
+
+.detail ul#detail_list li{
+    background-color: #ff8948;
+}
+
+.detail ul#finished_list li{
+
+    background-color: #35803e;
+}
+
+.detail ul li button{
+    display: block;
+    float:right;
+    width: 20px;
+    height: 16px;
+    margin-right: 4px;
+}
+.detail ul li button:hover{
+    font-weight: bold;
+}
+.detail ul li button.done{
+     background-color: greenyellow;
+}
+
+.detail ul li button.remove{
+    background-color: red;
+}
+
+.detail ul li button.set{
+    width: 30px;
+    background-color: white;
+    position: absolute;
+    right: 50px;
+    top: 0;
+    text-align: center;
+    color: black;
+}
+.detail ul li .task{
+    display: inline-block;
+    width: 310px;
+    margin-left: 30px;
+    background-color: transparent;
+    border:none;
+    height: 16px;
+    padding: 0;
+    line-height: 16px;
+    resize: none;
+    font-size: 13px;
+
+    /*background-color: red;*/
+}
+
+.detail ul#finished_list li button.done{
+    display: none;
 }

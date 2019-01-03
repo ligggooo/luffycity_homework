@@ -9,15 +9,44 @@
 </head>
 <body>
     <div class="topBar">
-        <form action="" class="top_form" onsubmit="return false;">
-            <label for="top_input" class="top_label">ToDoList</label>
-            <input type="text" class="" id="top_input" autocomplete="off" required="required">
-        </form>
+        <!--  输入 清除  -->
+        <div class="container">
+            <button id="clear_all">清除全部</button>
+            <!--<form action="" class="top_form" onsubmit="return false;">-->
+            <form action="" class="top_form">
+                <label for="top_input" class="top_label">ToDoList</label>
+                <input type="text" class="" id="top_input" autocomplete="off" required="required" placeholder="输入待办事项">
+            </form>
+        </div>
     </div>
     <div class="detail">
-        <ul id="detail_list">
+        <div class="container main">
+            <!--未完成事项-->
+            <h3>未完成</h3>
+            <ul id="detail_list">
+                <!--JS生成 下面是示例-->
+                <!--<li>-->
+                    <!--2019/1/3 下午4:26:36-->
+                    <!--<textarea class="task" spellcheck="false">早起吃饭</textarea>-->
+                    <!--<button class="remove">×</button>-->
+                    <!--<button class="done">√</button>-->
+                    <!--<button class="set">SET</button>-->
+                <!--</li>-->
+            </ul>
 
-        </ul>
+            <!--已完成事项-->
+            <h3>已完成</h3>
+            <ul id="finished_list">
+                <!--JS生成 下面是示例-->
+                <!--<li>-->
+                <!--2019/1/3 下午4:26:36-->
+                <!--<textarea class="task" spellcheck="false">早起吃饭</textarea>-->
+                <!--<button class="remove">×</button>-->
+                <!--<button class="done">√</button>-->
+                <!--<button class="set">SET</button>-->
+                <!--</li>-->
+            </ul>
+        </div>
     </div>
 
 </body>
