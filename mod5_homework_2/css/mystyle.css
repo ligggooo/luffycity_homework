@@ -1,0 +1,24 @@
+.topBar{
+    background-color: black;
+    font: 12px/40px "微软雅黑","Times New Roman";
+    color:white;
+}
+
+.top_form{
+    /*height:30px;*/
+    width:600px;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+
+.top_label{
+
+}
+#top_input{
+    border: 1px solid black;
+    height:30px;
+    width:330px;
+    background-color:grey;
+    margin-left:200px;
+    margin-right: 0;
+}

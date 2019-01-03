@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{
+            padding:0;
+            margin:0;
+        }
+        body{
+            margin:20px;
+        }
+        .clear_fix:after{
+            content:'.';
+            clear:both;
+            display: block;
+            height:0;
+            visibility: hidden;
+        }
+        .container_1{
+            width:170px;
+            margin: 0 auto;
+            background-color: #fd9256;
+            position: relative;
+            height: 170px;
+        }
+        #s1{
+            background-color: green;
+            width:120px;
+            height:50px;
+            position: absolute;
+        }
+        #s3{
+            background-color: #dada00;
+            width:50px;
+            height:120px;
+            position: absolute;
+            top:50px;
+        }
+        #s2{
+            background-color: blue;
+            width:120px;
+            height:50px;
+            position: absolute;
+            top: 120px;
+            right: 0px;
+        }
+        #s4{
+            background-color: red;
+            width:50px;
+            height:120px;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+        }
+
+        #center_text{
+            position: absolute;
+            width:30px;
+            height: 30px;
+            top:70px;
+            left: 70px;
+            line-height: 30px;
+            font-size: 23px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        function $(id) {
+            return document.getElementById(id)
+        }
+
+        function f1() {
+            // s4 u;
+            // s1 r;s2 l;s3 d;
+            $("s1").style.left = '50px';
+            $("s2").style.left = '0px';
+            $("s3").style.top = '0px';
+            $("s4").style.top = '50px';
+        }
+        function f2() {
+            // s4 u;
+            // s1 r;s2 l;s3 d;
+            $("s1").style.left = '0px';
+            $("s2").style.left = '50px';
+            $("s3").style.top = '50px';
+            $("s4").style.top = '0px';
+        }
+
+        function f3() {
+            var obj = $('s1');
+            if(obj.flag){
+                f1();
+                obj.flag=false;
+            }else {
+                f2();
+                obj.flag=true;}
+            if (obj.index<obj.text_data.length-1){
+                $('center_text').innerText=obj.text_data[obj.index];
+                obj.index++;
+            }else{
+                $('center_text').innerText=obj.text_data[obj.index];
+                obj.index = 0;
+            }
+        }
+        function f4() {
+            var obj=$('s1');
+            obj.flag=true;
+            obj.index=0;
+            obj.text_data='这个页面还在施工...';
+            setInterval(f3,300);
+        }
+
+        function win_onload() {
+            f4();
+
+        }
+        window.onload=win_onload;
+    </script>
+    <h1>这个页面还在施工。。。。</h1>
+    <div class="container_1 clear_fix" id="container">
+        <p id="center_text"></p>
+        <div id="s1"></div>
+        <div id="s3"></div>
+        <div id="s2"></div>
+        <div id="s4"></div>
+    </div>
+</body>
+</html>
