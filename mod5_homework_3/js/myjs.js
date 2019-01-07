@@ -139,7 +139,7 @@ function add_new_topic_from_obj(node_data){ // 完善中
         }
     }
 
-    // 绑主题展开方法
+    // 绑定 主题展开方法
     new_node.find('p.open_close').click(function () {
         // alert('sss');
         $(this).siblings('form').stop().slideToggle(100);
@@ -155,7 +155,7 @@ function add_new_topic_from_obj(node_data){ // 完善中
         }
         event.stopPropagation();
     });
-    //帮评论方法
+    //帮定评论方法
     new_node.find('input[type=submit]').click(function () {
         let comment=$(this).siblings('input[type=text]').val();
         let t=new Date();
