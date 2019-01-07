@@ -26,34 +26,15 @@ function page_init() {
     });
 
 
-    // 登陆框绑定
-    $('a.login').click(function () {
-        $('div.login_mask').css('display','block');
-        return false;
-    });
 
-    $('.login_form button.close').click(function () {
-        $('div.login_mask').css('display','none');
-        return false;
-    });
     // 发表框绑定
     $('.content .content_nav_controllers button[id=user_submit]').click(article_submit_form_open);
     $('.article_submit_form button.close').click(article_submit_form_close);
     $('.article_submit_form input[type=submit]').click(article_submit);
 
 
-
-    // 注册框绑定
-    $('a.register').click(function () {
-        $('div.register_mask').css('display','block');
-        return false;
-    });
-
-    $('.register_form button.close').click(function () {
-        $('div.register_mask').css('display','none');
-        return false;
-    });
-
+    login_bind();
+    register_bind();
 
 }
 
@@ -102,43 +83,23 @@ function article_submit() {
         //显示新帖子
         // add_new_topic(username,data);
         let time = new Date();
-        add_new_topic('小王','年终奖什么时候发啊？？',time); //测试
+        add_new_topic('小王','年终奖什么时候发啊？？',time); //测试  todo
         // 关闭发文窗口
         article_submit_form_close();
         return false;
     }
 }
 
-function add_new_topic(username,data,time) { // todo
-    let new_node =$(`<div class="t">
-            <p class="topic"> ${data} + ${username} + ${time}</p>
-            <form action="" class="comment"> 
-            <ul></ul> 
-            <input type="text" name="" placeholder="整两句">
-            <input type="submit" value="提交">
-            </form>
-       </div>`);
-    new_node.prependTo($('.content_detail .section_1'));
-
-    // 绑主题展开方法
-    new_node.find('p').click(function () {
-        // alert('sss');
-        $(this).siblings('form').stop().slideToggle(100);
-        event.stopPropagation();
-    });
-    //帮评论方法
-    new_node.find('input[type=submit]').click(function () {
-        let comment=$(this).siblings('input[type=text]').val();
-        let t=new Date();
-        $(this).siblings('input[type=text]').val('');
-        if(comment){
-            $(this).siblings('ul').append(`<li>${comment}<span>${t}</span></li>`);
-        }else{
-            alert('提交之前整两句先');
-        }
-        return false;
-    });
-
+function add_new_topic(username,data,time) {
+    let node_obj={
+        topic:data,
+        user:username,
+        time:time,
+        comments:[],
+        likes:0,
+        dislikes:0
+    };
+    add_new_topic_from_obj(node_obj);
 }
 
 function add_new_topic_from_obj(node_data){ // 完善中
@@ -152,12 +113,17 @@ function add_new_topic_from_obj(node_data){ // 完善中
 
     let new_node =$(`<div class="t">
             <p class="topic"> ${data} + ${username} + <span class="time">${time}</span></p>
+            <p class="open_close">查看评论</p>
             <form action="" class="comment"> 
             <ul></ul> 
             <input type="text" name="" placeholder="整两句">
+            <p class="like">${likes}</p><a href="" class="like">👍</a>
+            <p class="dislike">${dislikes}</p><a href="" class="dislike">👎</a>
             <input type="submit" value="提交">
             </form>
        </div>`);
+
+    new_node[0].open = false;
     new_node.prependTo($('.content_detail .section_1'));
 
     for(let i=0;i<comments.length;i++){
@@ -169,9 +135,19 @@ function add_new_topic_from_obj(node_data){ // 完善中
     }
 
     // 绑主题展开方法
-    new_node.find('p').click(function () {
+    new_node.find('p.open_close').click(function () {
         // alert('sss');
         $(this).siblings('form').stop().slideToggle(100);
+        if($(this).parent('div')[0].open===false){
+            $(this).parent('div')[0].open=true;
+            // $(this).siblings('p.open_close').text('关闭评论');
+            $(this).text('关闭评论');
+        }else{
+            $(this).parent('div')[0].open=false;
+            // $(this).siblings('p.open_close').text('查看评论');
+            $(this).text('查看评论');
+
+        }
         event.stopPropagation();
     });
     //帮评论方法
@@ -184,6 +160,22 @@ function add_new_topic_from_obj(node_data){ // 完善中
         }else{
             alert('提交之前整两句先');
         }
+        return false;
+    });
+
+    //    绑定点赞
+    new_node.find('a.like').click(function () {
+        let t = $(this).siblings('p.like');
+        let like =t.text();
+        like = Number(like)+1;
+        t.text(like);
+        return false;
+    });
+    new_node.find('a.dislike').click(function () {
+        let t = $(this).siblings('p.dislike');
+        let dislike =t.text();
+        dislike = Number(dislike)+1;
+        t.text(dislike);
         return false;
     });
 }
