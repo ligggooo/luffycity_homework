@@ -1,0 +1,426 @@
+/* --------------------------------#0 全局的 -----------------------*/
+.container{
+    width: 1040px;
+    height: 100%;
+    margin:0 auto;
+    /*background-color: green;*/
+    background-color: transparent;
+    position: relative;
+}
+
+.clear_fix:after{
+    content:'.';
+    clear:both;
+    display: block;
+    height:0;
+    visibility: hidden;
+}
+
+body{
+    min-width: 1226px;
+}
+
+/* -----------------------------------局部的-------------------------*/
+/* --------------------------------#1.0    topbar-------------------------*/
+.topBar{
+    background-color: #2459a2;
+    width: 100%;
+    /*height: 40px;*/
+    font: 12px/40px "微软雅黑","Times New Roman";
+    color: white;
+    text-align:center;
+}
+.topBar a{
+    color: white;
+    text-decoration: none;
+}
+.topBar a:hover{
+    font-weight: bold;
+    color: white;
+}
+.top_nav{
+    /*background-color: red;*/
+    background-color: transparent;
+    width: 477px;
+    height: 100%;
+    float:left;
+}
+.top_nav ul li{
+    float: left;
+    padding: 0 5px;
+    height: 40px;
+ }
+
+.top_nav .logo{
+    display: block;
+    width: 121px;
+    height:23px;
+    background:url("../images/chou-logo.png") no-repeat;
+    background-size: cover;
+    position: relative;
+    top:9px;
+}
+.top_search{
+    /*background-color: red;*/
+    background-color: transparent;
+    width: 120px;
+    height: 100%;
+    float:right;
+}
+.top_search{
+    float:right;
+    width: 131px;
+    height: 100%;
+    position: relative;
+    right:0;
+    top:5px;
+}
+
+.top_search .top_search_form input[type='text']{
+    width: 91px;
+    height: 28px;
+    float:right;
+    border:1px solid black;
+}
+.top_search .top_search_form .submit{
+    width: 30px;
+    height: 30px;
+    float: right;
+    border:1px solid black;
+    cursor: pointer;
+    font: 20px/30px "微软雅黑","Times New Roman";
+}
+.top_search .top_search_form .submit:hover{
+    border:none;
+    background-color: #f1a624;
+    color:white;
+}
+.user_info{
+    /*background-color: red;*/
+    background-color: transparent;
+    width: 243px;
+    height: 100%;
+    float:right;
+}
+.user_info ul li{
+    float: right;
+    padding: 0 5px;
+    height: 30px;
+    width: 100px;
+}
+
+/* --------------------------------- 2 主体 ------------------------------ */
+.main_padding{
+    width: 960px;
+    padding:6px 28px;
+}
+/* --------------------------------#2.0  广告区-------------------------*/
+.advertisement{
+    float:right;
+    width: 300px;
+    height: 1362px;
+    background-color: red;
+    font:42px/50px "微软雅黑","Times New Roman";
+    color:white;
+}
+.advertisement a{
+    display: inline-block;
+    width: 165px;
+    height: 100%;
+    background-color: transparent;
+}
+
+/* ----------------------------------#2.1 内容区 ------------------------*/
+.content{
+    float:left;
+    width: 630px;
+    height: 100%;
+    background-color: green;
+    font:42px/50px "微软雅黑","Times New Roman";
+    color:white;
+    margin-right: 20px;
+}
+
+
+
+/*  内容区导航栏*/
+.content .content_nav{
+    background-color: purple;
+    width: 100%;
+    height:40px;
+}
+
+.content .content_nav_ul{
+    background-color: pink;
+    width: 200px;
+    height:40px;
+    font-size: 12px;
+    text-align: center;
+}
+
+/*分类导航标签*/
+.content .content_nav_ul li{
+    display: block;
+    float: left;
+    height: 30px;
+    width: 60px;
+    border-radius: 15px;
+    background-color: grey;
+    line-height: 30px;
+    margin-left: 5px;
+    position: relative;
+    top: 5px;
+}
+.content .content_nav_ul li:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    font-size:13px;
+}
+
+
+
+.content .content_nav_controllers{
+    background-color: pink;
+    width: 300px;
+    height:30px;
+    font-size :12px;
+    line-height: 30px;
+    position: relative;
+    left: 330px;
+    top: -35px;
+}
+
+.content .content_nav_controllers button{
+    float: right;
+    height:30px;
+    /*width:50px;*/
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.content .content_nav_controllers button.sort:hover{
+    text-decoration: underline;
+}
+
+.content #user_submit{
+    background-color: hotpink;
+    width: 100px;
+    color:white;
+
+}
+
+
+/*终于写到内容栏了*/
+
+.content .content_detail{
+    width:630px;
+    min-height: 1700px;
+    background-color: grey;
+}
+
+.content .content_detail>div{
+    display: none;
+    width:630px;
+    background-color: grey;
+    position: absolute;
+}
+
+.content .content_detail .section_1{
+    background-color: red;
+}
+
+.content .content_detail .section_2{
+    background-color: blue;
+}
+
+.content .content_detail .section_3{
+    background-color: yellow;
+}
+
+/*  选择 特效   */
+/*初始状态下默认选中第一个li  jq控制addclass*/
+.content .content_nav_ul .content_nav_li_chosen{
+    background-color: black;
+    font-weight: bold;
+    text-decoration:underline;
+}
+
+/*初始状态下默认选中第一个section  jq控制addclass*/
+.content .content_detail .content_detail_div_chosen{
+    display: block;
+}
+
+.content .content_nav_controllers button.button_sort_chosen{
+    color: #4b4b4b;
+    font-weight: bolder;
+}
+
+
+/*   内容主题区*/
+.content_detail .comment{
+    /*width:260px;*/
+    background-color: green;
+    color:white;
+}
+.topic:hover{
+    cursor:pointer;
+}
+.content_detail .t{
+    background-color: yellow;
+    width:626px;
+    font-size: 13px;
+    margin:0 auto;
+    position: relative;
+    color: #000;
+}
+.content_detail .t span.time{
+    color:green;
+    margin-left: 25px;
+    font-size: 11px;
+}
+
+.content_detail .t ul{
+    width:600px;
+    list-style: none;
+    margin-left: 13px;
+}
+.content_detail .t span.time{
+    color:green;
+    margin-left: 13px;
+}
+.content_detail .t ul li{
+    background-color: pink;
+    height: 30px;
+    line-height: 30px;
+    color:black;
+}
+.content_detail .t form{
+    display: none;
+}
+.content_detail .t input[type=submit]{
+    display: block;
+    position: absolute;
+    width: 40px;
+    right:0;
+    bottom: 16px;
+    height:20px;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+}
+.content_detail .t input[type=text]{
+    height:16px;
+    width: 230px;
+    font-size: 13px;
+    line-height: 16px;
+    margin-left: 20px;
+}
+
+
+
+
+
+/*       5   登陆框     */
+.login_mask{
+    display: none;
+    width: 100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    z-index: 4;
+}
+.login_form{
+    display: block;
+    width: 400px;
+    height: 250px;
+    position: relative;
+    background-color: red;
+    top:50%;
+    left: 50%;
+    margin-top: -125px;
+    margin-left: -200px;
+}
+
+/*       5b   发表框     */
+.article_submit_mask{
+    display: none;
+    width: 100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    z-index: 4;
+}
+.article_submit_form{
+    display: block;
+    width: 400px;
+    height: 250px;
+    position: relative;
+    background-color: red;
+    top:50%;
+    left: 50%;
+    margin-top: -125px;
+    margin-left: -200px;
+}
+
+/*       5c   注册框     */
+.register_mask{
+    display: none;
+    width: 100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    z-index: 4;
+}
+.register_form{
+    display: block;
+    width: 400px;
+    height: 250px;
+    position: relative;
+    background-color: red;
+    top:50%;
+    left: 50%;
+    margin-top: -125px;
+    margin-left: -200px;
+}
+
+
+
+
+
+
+
+
+/* --------------------------------#6.0  helper-------------------------*/
+.fixedHelper{
+    width: 71px;
+    height: 60px;
+    background-color: #f1a624;
+    position: fixed;
+    bottom:200px;
+    left:4px;
+    border-radius: 10px;
+}
+.fixedHelper:hover{
+    background-color: grey;
+}
+
+.fixedHelper p{
+    display: block;
+    color:white;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.fixedHelper a{
+    display: block;
+    text-decoration: none;
+    border-radius: 20px;
+    height: 35px;
+    width: 70px;
+    background: url('../images/icon-slides_up_down.png') no-repeat ;
+}
+
