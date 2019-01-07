@@ -38,14 +38,16 @@
             <div class="top_search">
                 <form action="" class="top_search_form">
 
-                    <button class="submit" value="">搜</button>
+                    <button class="submit" value="">🔍</button>
                     <input type="text">
                 </form>
             </div>
             <div class="user_info">
                 <ul class="user_info_ul">
+                    <li><a href="./404.html" class ='logout'>登出</a></li>
                     <li><a href="./404.html" class ='login'>登陆</a></li>
                     <li><a href="./404.html" class ='register'>注册</a></li>
+
                 </ul>
             </div>
         </div>
@@ -61,7 +63,7 @@
                         <li>人类发布</li>
                     </ul>
                     <div class="content_nav_controllers">
-                        <button id="user_submit">🍖 发布</button>
+                        <button id="user_submit">🚩 &nbsp;&nbsp; 发布</button>
                         <button class="sort">3天</button>
                         <button class="sort">24小时</button>
                         <button class="sort">即时排序</button>
@@ -85,27 +87,27 @@
 
     <div class="login_mask">
         <form action="" class="login_form">
-            <button class="close">close</button>
-            <input type="text" placeholder="输入用户名..." name="username">
-            <input type="text" placeholder="输入密码..." name="password">
+            <button class="close">❌</button>
+            <input type="text" placeholder="输入用户名..." name="username" required="required">
+            <input type="password" placeholder="输入密码..." name="password" required="required">
             <input type="submit" value="提交">
         </form>
     </div>
 
     <div class="register_mask">
         <form action="" class="register_form">
-            <button class="close">close</button>
-            <input type="text" placeholder="输入用户名...">
-            <input type="text" placeholder="输入密码...">
-            <input type="text" placeholder="再次输入密码以确认...">
+            <button class="close">❌</button>
+            <input type="text" placeholder="输入用户名..." name="username" required="required">
+            <input type="password" placeholder="输入密码..." name="passwd_1" required="required">
+            <input type="password" placeholder="再次输入密码以确认..." name="passwd_2" required="required">
             <input type="submit" value="提交">
         </form>
     </div>
 
     <div class="article_submit_mask">
         <form action="" class="article_submit_form">
-            <button class="close">close</button>
-            <input type="text" placeholder="输入一句话" id="topic">
+            <button class="close">❌</button>
+            <textarea placeholder="输入一句话" id="topic"  rows="5" cols="40"></textarea>
             <input type="submit" value="提交">
         </form>
     </div>

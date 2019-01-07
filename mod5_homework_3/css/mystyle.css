@@ -109,6 +109,10 @@ body{
     width: 100px;
 }
 
+.user_info ul li:nth-child(1){
+    display: none;
+}
+
 /* --------------------------------- 2 主体 ------------------------------ */
 .main_padding{
     width: 960px;
@@ -120,8 +124,9 @@ body{
     width: 300px;
     height: 1362px;
     background-color: red;
-    font:42px/50px "微软雅黑","Times New Roman";
-    color:white;
+    font:180px/200px "微软雅黑","Times New Roman";
+    color:gold;
+    text-align: center;
 }
 .advertisement a{
     display: inline-block;
@@ -135,9 +140,9 @@ body{
     float:left;
     width: 630px;
     height: 100%;
-    background-color: green;
+    background-color: white;
     font:42px/50px "微软雅黑","Times New Roman";
-    color:white;
+    color:#2459a2;
     margin-right: 20px;
 }
 
@@ -145,13 +150,13 @@ body{
 
 /*  内容区导航栏*/
 .content .content_nav{
-    background-color: purple;
+    background-color: transparent;
     width: 100%;
     height:40px;
 }
 
 .content .content_nav_ul{
-    background-color: pink;
+    background-color: transparent;
     width: 200px;
     height:40px;
     font-size: 12px;
@@ -165,7 +170,7 @@ body{
     height: 30px;
     width: 60px;
     border-radius: 15px;
-    background-color: grey;
+    background-color: white;
     line-height: 30px;
     margin-left: 5px;
     position: relative;
@@ -180,7 +185,7 @@ body{
 
 
 .content .content_nav_controllers{
-    background-color: pink;
+    background-color: white;
     width: 300px;
     height:30px;
     font-size :12px;
@@ -196,6 +201,7 @@ body{
     /*width:50px;*/
     margin-right: 20px;
     cursor: pointer;
+    background-color: white;
 }
 
 .content .content_nav_controllers button.sort:hover{
@@ -240,9 +246,10 @@ body{
 /*  选择 特效   */
 /*初始状态下默认选中第一个li  jq控制addclass*/
 .content .content_nav_ul .content_nav_li_chosen{
-    background-color: black;
+    background-color: #979797;
     font-weight: bold;
     text-decoration:underline;
+    color:white;
 }
 
 /*初始状态下默认选中第一个section  jq控制addclass*/
@@ -346,8 +353,13 @@ body{
 
 
 
+/*       5 几个框         */
+button.close{
+    width: 40px;
+    height:40px;
+}
 
-/*       5   登陆框     */
+/*       5a   登陆框     */
 .login_mask{
     display: none;
     width: 100%;
@@ -360,13 +372,19 @@ body{
 .login_form{
     display: block;
     width: 400px;
-    height: 250px;
+    height: 200px;
     position: relative;
-    background-color: red;
+    background-color: white;
     top:50%;
     left: 50%;
     margin-top: -125px;
     margin-left: -200px;
+}
+
+.login_form input{
+    display: block;
+    margin: 30px auto 30px;
+    border: black solid 1px;
 }
 
 /*       5b   发表框     */
@@ -382,13 +400,18 @@ body{
 .article_submit_form{
     display: block;
     width: 400px;
-    height: 250px;
+    height: 220px;
     position: relative;
-    background-color: red;
+    background-color: white;
     top:50%;
     left: 50%;
     margin-top: -125px;
     margin-left: -200px;
+}
+.article_submit_form textarea,.article_submit_form input{
+    display: block;
+    margin: 30px auto 30px;
+    border: black solid 1px;
 }
 
 /*       5c   注册框     */
@@ -406,13 +429,18 @@ body{
     width: 400px;
     height: 250px;
     position: relative;
-    background-color: red;
+    background-color: white;
     top:50%;
     left: 50%;
     margin-top: -125px;
     margin-left: -200px;
 }
 
+.register_form input{
+    display: block;
+    margin: 30px auto 30px;
+    border: black solid 1px;
+}
 
 
 
@@ -424,7 +452,7 @@ body{
 .fixedHelper{
     width: 71px;
     height: 60px;
-    background-color: #f1a624;
+    background-color: #2459a2;
     position: fixed;
     bottom:200px;
     left:4px;

@@ -1,6 +1,6 @@
 var section_chosen_index;
 var sort_chosen_index;
-var username='';
+
 
 
 function page_init() {
@@ -58,6 +58,11 @@ function sort_chosen(event){
 }
 
 function article_submit_form_open() {
+    if(!login_status.status){
+        alert('请先登陆');
+        article_submit_form_close();
+        return false;
+    }
     $('div.article_submit_mask').css('display','block');
     return false;
 }
@@ -66,7 +71,7 @@ function article_submit_form_close() {
     return false;
 }
 function article_submit() {
-    let topic_input = $('.article_submit_form input#topic');
+    let topic_input = $('.article_submit_form textarea#topic');
     let data = topic_input.val();
     if(!data){
         return false;
@@ -76,14 +81,14 @@ function article_submit() {
         console.log(data);
         //接下来发送数据到服务器
         let msg = {
-            username:username,
+            username:login_status.name,
             topic:data
         };
         send_data(msg);
         //显示新帖子
         // add_new_topic(username,data);
         let time = new Date();
-        add_new_topic('小王','年终奖什么时候发啊？？',time); //测试  todo
+        add_new_topic(login_status.name,data,time);
         // 关闭发文窗口
         article_submit_form_close();
         return false;
@@ -181,7 +186,7 @@ function add_new_topic_from_obj(node_data){ // 完善中
 }
 
 function load_testdata() {
-    alert('载入测试用数据');
+    console.log('载入测试用数据');
     $.getJSON('./data/data.json','',function (data) {
         console.log(data);
         for(let i=0;i<data.length;i++){
